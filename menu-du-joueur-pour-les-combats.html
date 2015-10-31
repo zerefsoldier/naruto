@@ -212,51 +212,50 @@ Utilisation d'un template :
 		};
 		MenuPartie1.prototype.init = function(){
 			var self = this;
-	            	$("#cadre1").keyup(function(e){
-	                if ((e.keyCode == 48 && self.position > 0) || (e.keyCode == 50 && self.position < $("#cadre1 span").size() - 2)){
-	                    self.anciennePosition = self.position;
-	                    if (e.keyCode == 48)
-	                        self.position--;
-	                    else
-	                        self.position++;
-	                    $("#cadre1").children("span:eq(" + self.anciennePosition + ")").removeAttr("class");
-	                    $("#cadre1").children("span:eq(" + self.position + ")").attr("class", "spanCibleSourieMenuCombat");
-	                    if ($("#cadre1").children("span:eq(" + self.position + ")").parent().attr("id") != "rubriqueTechniquesEtObjets")
-	                        $("#cadre2").attr("class", "cache");
-	                }
-	                else if (e.keyCode == 49 && $(".spanCibleSourieMenuCombat:eq(0)").parent().attr("id") == "rubriqueTechniquesEtObjets"){
-	                    self.menuCombat.afficherItems(self.position - 1 - $("#rubriqueTechniquesEtObjets span").size(), 0, true);
-	                    self.partie2Menu.init(self.position - 1 - $("#rubriqueTechniquesEtObjets span").size());
-	                }
-	                else{
-	                    	if (e.keyCode == 13 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").parent().attr("id") == "manipulationChakra")
-					var number = $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "enleverChakraArme" || $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "ajouterChakraArme" ? 0 : 1;
-					var choix = (number == 0 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "ajouterChakraArme") || (number == 1 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "ajouterChakraPied") ? "oui" : "non";
-					self.manipulationChakra[number][0] = choix;
-					if (number == 0 && choix == "oui"){
-						$("#manipulationChakra span:eq(2)").attr("class", "actif");
-						$("#manipulationChakra span:eq(0)").text("Ajuster le chakra contenu dans l'arme");
+				$("#cadre1").keyup(function(e){
+					if ((e.keyCode == 48 && self.position > 0) || (e.keyCode == 50 && self.position < $("#cadre1 span").size() - 2)){
+						self.anciennePosition = self.position;
+						if (e.keyCode == 48)
+							self.position--;
+						else
+							self.position++;
+						$("#cadre1").children("span:eq(" + self.anciennePosition + ")").removeAttr("class");
+						$("#cadre1").children("span:eq(" + self.position + ")").attr("class", "spanCibleSourieMenuCombat");
+						if ($("#cadre1").children("span:eq(" + self.position + ")").parent().attr("id") != "rubriqueTechniquesEtObjets")
+							$("#cadre2").attr("class", "cache");
 					}
-					else if (number == 1 && choix == "oui"){
-						$("#manipulationChakra span:eq(3)").attr("class", "actif");
-						$("#manipulationChakra span:eq(1)").text("Ajuster le chakra contenu dans mes pieds");
-					}
-					else if (number == 0 && choix == "non"){
-						$("#manipulationChakra span:eq(0)").text("Ajouter du chakra dans mon arme");
-						$("#manipulationChakra span:eq(2)").attr("class", "inactif");
+					else if (e.keyCode == 49 && $(".spanCibleSourieMenuCombat:eq(0)").parent().attr("id") == "rubriqueTechniquesEtObjets"){
+						self.menuCombat.afficherItems(self.position - 1 - $("#rubriqueTechniquesEtObjets span").size(), 0, true);
+						self.partie2Menu.init(self.position - 1 - $("#rubriqueTechniquesEtObjets span").size());
 					}
 					else{
-						$("#manipulationChakra span:eq(0)").text("Ajouter du chakra dans mes pieds");
-						$("#manipulationChakra span:eq(3)").attr("class", "inactif");
+						if (e.keyCode == 13 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").parent().attr("id") == "manipulationChakra")
+							var number = $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "enleverChakraArme" || $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "ajouterChakraArme" ? 0 : 1;
+							var choix = (number == 0 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "ajouterChakraArme") || (number == 1 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "ajouterChakraPied") ? "oui" : "non";
+							self.manipulationChakra[number][0] = choix;
+							if (number == 0 && choix == "oui"){
+								$("#manipulationChakra span:eq(2)").attr("class", "actif");
+								$("#manipulationChakra span:eq(0)").text("Ajuster le chakra contenu dans l'arme");
+							}
+							else if (number == 1 && choix == "oui"){
+								$("#manipulationChakra span:eq(3)").attr("class", "actif");
+								$("#manipulationChakra span:eq(1)").text("Ajuster le chakra contenu dans mes pieds");
+							}
+							else if (number == 0 && choix == "non"){
+								$("#manipulationChakra span:eq(0)").text("Ajouter du chakra dans mon arme");
+								$("#manipulationChakra span:eq(2)").attr("class", "inactif");
+							}
+							else{
+								$("#manipulationChakra span:eq(0)").text("Ajouter du chakra dans mes pieds");
+								$("#manipulationChakra span:eq(3)").attr("class", "inactif");
+							}
+						else{
+							if (e.keyCode == 13 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "attaquerAvecArme")
+								$.post("ajax.php", "coup" : "attaqueSimple", "chakraDansArme" : self.manipulerChakra[0][0], "valeurChakraArme" : self.manipulerChakra[0][1], "chakraDansPieds" : self.manipulerChakra[1][0], "valeurChakraPieds" : self.manipulerChakra[1][1]}); 
+						}
 					}
-				}
-				else{
-					if (e.keyCode == 13 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "attaquerAvecArme")
-						$.post("ajax.php", "coup" : "attaqueSimple", "chakraDansArme" : self.manipulerChakra[0][0], "valeurChakraArme" : self.manipulerChakra[0][1], "chakraDansPieds" : self.manipulerChakra[1][0], "valeurChakraPieds" : self.manipulerChakra[1][1]}); 
-				}
-				
-			}
-            	};
+				});
+			};
 		return MenuPartie1;
 	});
 	//checked
