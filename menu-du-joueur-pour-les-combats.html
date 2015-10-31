@@ -1,0 +1,314 @@
+<script type="text/javascript">
+//avoir le nom de l'adversaire
+$.post("ajax.php"; {"action" : "recupererDonneesPourCombat"}).done(function(datas){
+
+    var gererChakra = ["non", 0], gererChakraPourVitesse = ["non", 0];
+    var techniques  = [[], [], []];
+    var laTechnique = null;
+    var objects = [];
+    var newDatas = datas.split("&");
+    var ciblesSourie = [["#cibleSourie1", 0], ["#cibleSourie2", 0]];
+    for (var technique in newDatas[1].split("|")){
+        laTechnique = technique.split("*");
+        if (laTechnique[3] == "taijutsu")
+            techniques[0].push(laTechnique);
+        else if (laTechnique[3] == "ninjutsu")
+            techniques[1].push(laTechnique);
+        else
+            techniques.push(laTechnique);
+    }
+    for (var object in newDatas[0].split("|")){
+        objects.push(object.split("*"));
+    }
+    $(window).keyup(function(e){
+        if (e.keyCode == 48 || keyCode == 50){
+            var indice = $("#cadre2").attr("class") == "cache" ? 0 : 1;
+            var anciennePos = ciblesSourie[indice][1];
+            if (e.keyCode == 48 && anciennePos > 0)
+                ciblesSourie[indice][1]--;
+            else{
+                if (e.keyCode == 50 && (indice == 0 &&  anciennePos <= $())
+                ciblesSourie[indice][1]++;
+            }
+            $(ciblesSourie[indice][0]).children("span:eq(" + ciblesSourie[indice][anciennePos] + ")").removeAttr("id");
+            $(ciblesSourie[indice][0]).children("span:eq(" + ciblesSourie[indice][1] + ")").removeAttr("id");
+        }
+    });
+    $("#modeCombat").click(function(){
+    	if ($(this).text() == "normal")
+            $(this).text("stratège");
+    	else
+            $(this).text("normal");
+    });
+    $(".actionsTechniquesManipulationChakra").click(function(){
+	var pos = 0;
+        var etatOk = false;
+        if ($(this).attr("id") == "activerChakraArme" || $(this).attr("id") == "desactiverChakraArme"){
+            if ($(this).attr("id") == "activerChakraArme"){
+                gererChakra[0][0] = "oui";
+                $(this).attr("id", "desactiverChakraArme");
+                $(this).text("Enlever l'utilisation du chakra sur l'arme");
+                etatOk = true;
+            }
+            else{
+                gererChakra[0][0] = "non";
+                $(this).attr("id", "activerChakraArme");
+                $(this).text("Activer l'utilisation du chakra sur l'arme");
+            }
+	else{
+            pos = 1;
+            if ($(this).attr("id") == "activerChakraPieds"){
+                gererChakra[1][0] = "oui";
+                $(this).attr("id", "desactiverChakraPied");
+                $(this).text("Enlever l'utilisation du chakra en dessous des pieds");
+                etatOk = true;
+            }
+            else{
+                gererChakra[1][0] = "non";
+                $(this).attr("id", "activerChakraPied");
+                $(this).text("Activer l'utilisation du chakra en dessous des pieds");
+            }
+	}
+        if (etatOk){
+            $(document).append($("#modeAvanceCbChakraUtilisation").html());
+            $("#champChakraADepenser").focus();
+            $.post("ajax.php", {"retransmission" : $("#content").html()});
+            $("#champChakraADepenser").keydown(function(){
+                $("#pourcentageChakraDepense").text(parseInt($(this).text()) / parseInt($("#pointsRestantsChakra").text()) * 100);
+                gererChakra[pos][1] = parseInt($(this).text());
+                $.post("ajax.php", {"retransmission" : $("#content").html()});
+            });
+        }
+    });
+    $(".lancerTypeTechnique").each(function(index){
+    	$(this).click(function(){
+            afficherPageItems(techniques[index - 1], $("#templateTechnique").html());
+            $.post("ajax.php", {"retransmission" : "info", "datas" : "regarde ses techniques de " + $(this).text()});
+    	});
+    });
+    $("#inventaire").click(function(){
+	   afficherPageItems(objects, $("#templateObject").html());
+       $.post("ajax.php", {"retransmission" : "info", "datas" : "regarde ses objets"});
+    });
+    
+    function afficherPageItems(items, template){
+        $("#cadre2").children(":last").html("");
+        for (var i = 0, c = parseInt(items.length / 10); i < c; i++){
+            if (i == 0)
+                $("#cadre2").children(":last").append("<span class=page id=pageCible>" + (i + 1) + "</span>");
+            else
+               $("#cadre2").children(":last").append("<span class=page>" + (i + 1) + "</span>"); 
+        }
+        $(".page").click(function(){
+            $("#pageCible").removeAttr("id");
+            $(this).attr("id", "pageCible");
+            if (10 * parseInt($("#pageCible").text()) + 10 <= items.length)
+                afficherItems(10 * parseInt($("#pageCible").text()), 10 * parseInt($("#pageCible").text()) + 10, items, template);
+            else
+                afficherItems(10 * parseInt($("#pageCible").text()), items.length, items, template);
+        });
+        if (10 <= items.length)
+            afficherItems(0, 10, items, template);
+        else
+            afficherItems(0, items.length, items, template);
+    }
+    
+    function afficherItems(deb, fin, items, template){
+        $("#cadre2").children(":first").html("");
+        for (; deb < fin; deb++){
+            $("#corps2").children(":first").append(template);
+            for (var i = 0, c = items.length; i < c; i++){
+                $("#corps2").children(":first").children(":last").children("span.cible:eq(" + i + ")");
+            }
+        }
+    }
+});
+/*
+Utilisation d'un template : 
+<div class="template" id="templateTechnique">
+    <span>Nom de la technique : <span class="cible></span></span>
+    <span>Points de dégats : <span class="cible"></span></span>
+    <span>Consommation de chakra : <span class="cible"></span></span>
+</div>
+ */
+	var MenuPartie2 = (function(){
+		MenuPartie2.prototype.MenuPartie2 = function(menuCombatParam)[
+			this.position = this.anciennePosition = 0;
+			this.menuCombat = menuCombatParam;
+			this.pageDeb = 1;
+			this.pageFin = parseInt($(".page").last().text());
+			this.pageCourante = 1;
+			this.position = 0;
+			this.indice = null;
+		}
+		MenuPartie2.prototype.init = function(indiceParam){
+			$("#cadre2").focus();
+			this.indice = indiceParam;
+			var self = this;
+			$(".page").click(function(){
+				self.pageCourante = parseInt($(this).text());
+				self.menuCombat.afficherItems(self.indice, self.pageCourante - 1, false);
+				$("#pageCible").removeAttr("id");
+				$(this).attr("id", "pageCible");
+			});
+			$("#cadre2").keyup(function(e){
+				var pageChange = false;
+				if (e.keyCode == 47){
+					$(this).attr("class", "cache");
+					$("#cadre1").focus();
+				}
+				else if ((e.keyCode == 48 && (($(self).children("div:eq(" + self.position - 1 + ")").html() == $(self).children(":first").html() && self.pageCourante != 1) || ($(self).children("div:eq(" + self.position - 1 + ")").html() != $(self).children(":first").html()))) || (e.keyCode == 50 && (($(self).children("div:eq(" + self.position + 1 + ")").html() == $(self).children(":last").html() && self.pageCourante < self.pageFin)))){
+					if (e.keyCode == 48 && $(self).children("div:eq(" + self.position - 1 + ")").html() == $(self).children(":first").html()){
+						self.pageCourante -= 1;
+						self.position = 0;
+						$("#pageCible").removeAttr("id");
+						$(".page:eq(" + (self.pageCourante - 1) + ")").attr("id", "pageCible");
+						pageChange = true;
+					}
+					else if (e.keyCode == 48 && $(self).children("div:eq(" + self.position - 1 + ")").html() != $(self).children(":first").html())
+						self.position--;
+					else if (e.keyCode == 50 && $("#cadre2").children(":last").html() == $("#cadre2").children("span:eq(" + self.position + ")").html()){
+						self.pageCourante += 1;
+						self.position = 0;
+						$("#pageCible").removeAttr("id");
+						$(".page:eq(" + (self.pageCourante - 1) + ")").attr("id", "pageCible");
+						pageChange = true;
+					}
+					else
+						self.position++;
+					if (pageChange){
+						$("#pageCible").removeAttr("id");
+						$(".page:eq(" + (self.pageCourante - 1) + ")").attr("id", "pageCible");
+						self.menuCombat.afficherItems(indice, self.pageCourante, false);
+					}
+					else{
+						(".spanVuePart2Menu").removeAttr("class");
+						("#cadre2").children("div:eq(" + self.position + ")").attr("class", "spanVuePart2Menu");
+					}
+				}
+				else{
+					if (e.keyCode == 13)
+						if (parseInt($("#barreVie").attr("value")) > parseInt($(".spanVuePart2Menu").children("span:eq(4)"))){
+							//si le gars a assez de chakra
+							$.post("ajax.php", {"coup" : "technique", "code" : $(".spanVuePart2Menu").children("span:eq(0)").text()}.done(function(datas){
+								$("#barreVie").attr("value", parseInt($("#barreVie").attr("value")) - parseInt($(".spanVuePart2Menu").children("span:eq(4)")));
+							});
+						}
+						else
+							toastr.warning("Executer cette technique vous consommera tout votre chakra, execution de la technique impossible", "Attention !");
+				}
+			});
+		}
+		return MenuPartie2
+	});
+	//checked
+	var MenuPartie1 = (function(){
+		MenuPartie1.prototype.MenuPartie1 = function(menuCombatParam)[
+			this.position = this.anciennePosition = 0;
+			this.menuCombat = menuCombatParam;
+			this.partieMenu2 = new Partie2Menu(menuCombatParam);
+			this.manipulationChakra = [["non", 0], ["non", 0]];
+		}
+		MenuPartie1.prototype.init = function(){
+			var self = this;
+            $("#cadre1").keyup(function(e){
+                if ((e.keyCode == 48 && self.position > 0) || (e.keyCode == 50 && self.position < $("#cadre1 span").size() - 2)){
+                    self.anciennePosition = self.position;
+                    if (e.keyCode == 48)
+                        self.position--;
+                    else
+                        self.position++;
+                    $("#cadre1").children("span:eq(" + self.anciennePosition + ")").removeAttr("class");
+                    $("#cadre1").children("span:eq(" + self.position + ")").attr("class", "spanCibleSourieMenuCombat");
+                    if ($("#cadre1").children("span:eq(" + self.position + ")").parent().attr("id") != "rubriqueTechniquesEtObjets")
+                        $("#cadre2").attr("class", "cache");
+                }
+                else if (e.keyCode == 49 && $(".spanCibleSourieMenuCombat:eq(0)").parent().attr("id") == "rubriqueTechniquesEtObjets"){
+                    self.menuCombat.afficherItems(self.position - 1 - $("#rubriqueTechniquesEtObjets span").size(), 0, true);
+                    self.partie2Menu.init(self.position - 1 - $("#rubriqueTechniquesEtObjets span").size());
+                }
+                else{
+                    if (e.keyCode == 13 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").parent().attr("id") == "manipulationChakra")
+						var number = $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "enleverChakraArme" || $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "ajouterChakraArme" ? 0 : 1;
+						var choix = (number == 0 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "ajouterChakraArme") || (number == 1 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "ajouterChakraPied") ? "oui" : "non";
+						self.manipulationChakra[number][0] = choix;
+						if (number == 0 && choix == "oui"){
+							$("#manipulationChakra span:eq(2)").attr("class", "actif");
+							$("#manipulationChakra span:eq(0)").text("Ajuster le chakra contenu dans l'arme");
+						}
+						else if (number == 1 && choix == "oui"){
+							$("#manipulationChakra span:eq(3)").attr("class", "actif");
+							$("#manipulationChakra span:eq(1)").text("Ajuster le chakra contenu dans mes pieds");
+						}
+						else if (number == 0 && choix == "non"){
+							$("#manipulationChakra span:eq(0)").text("Ajouter du chakra dans mon arme");
+							$("#manipulationChakra span:eq(2)").attr("class", "inactif");
+						}
+						else{
+							$("#manipulationChakra span:eq(0)").text("Ajouter du chakra dans mes pieds");
+							$("#manipulationChakra span:eq(3)").attr("class", "inactif");
+						}
+						$(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("class", "inactif"){
+							$("#ajouterChakraArme").text("Envelopper mon arme de chakra (gain de puissance)");
+							$("#enleverChakraArme").removeAttr("class");
+						}
+                    }
+					else{
+						if (e.keyCode == 13 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "attaquerAvecArme")
+							$.post("ajax.php", "coup" : "attaqueSimple", "chakraDansArme" : self.manipulerChakra[0][0], "valeurChakraArme" : self.manipulerChakra[0][1], "chakraDansPieds" : self.manipulerChakra[1][0], "valeurChakraPieds" : self.manipulerChakra[1][1]}); 
+					}
+                }
+            });
+		};
+		return MenuPartie1;
+    });
+	//checked
+	var MenuCombat = (function(){
+		MenuCombat.prototype.MenuCombat = function(lesTechniques, lesObjets){
+			this.partie1Menu = new Partie1Menu(this);
+			this.techniques = lesTechniques;
+			this.objets = lesObjets;
+			this.partie1Menu.init();
+		};
+		MenuCombat.prototype.afficherPageItems = function(indice, items){
+			var self = this;
+            $("#cadre2").children(":last").html("");
+            for (var i = 0, c = parseInt(items.length / 10); i < c; i++){
+                if (i == 0)
+                    $("#cadre2").children(":last").append("<span class=page id=pageCible>" + (i + 1) + "</span>");
+                else
+                   $("#cadre2").children(":last").append("<span class=page>" + (i + 1) + "</span>"); 
+            }
+            if ($(".page").size() % 10 != 0)
+                $("#cadre2").children(":last").children(":last").remove();
+            $(".page").click(function(){
+                $("#pageCible").removeAttr("id");
+                $(this).attr("id", "pageCible");
+                self.afficherItems(indice, parseInt($(this).text()), false);
+            });
+		};
+		MenuCombat.prototype.afficherItems = function(indice, page, initialisation){
+			$("#cadre2").children(":first").html();
+            var fin = page * 10 + 10;
+            var ressources = null;
+            if (indice < 3)
+                ressources = ["#templateTechnique", this.techniques[indice]];
+            else{
+                if (indice > 3)
+                    ressources = ["#templateObjet", this.objets];
+            }
+			if (fin > ressources[1].length)
+				fin = ressources[1].length;
+            for (var i = page * 10; i < fin; i++){
+                $("#cadre2").children(":first").append($(ressources[0]).html());
+                for (var b = 0, c = ressources[1][i].length; b < c; b++){
+                    $("#cadre2").children(":first").children(":last").children("span:eq(" + b + ")").text(ressources[1][i][b]);
+                }       
+            }
+            if (initialisation)
+                this.afficherPageItems(indice);
+		};
+		return MenuCombat;
+	});
+
+</script>
