@@ -36,6 +36,12 @@ Intégrations de boutiques speciales comme la forge par exemple (ce serait sympa
 commandes de joueurs et qui crée une arme en la designant et en l'envoyant au serveur. Les statistiques seraient
 gérés en fonction des items donnés par l'acheteur de la futur arme. 
 
+===== **** ===== Les ninjas ===== **** =====
+
+Lors des combats le ninja aura la possibilité de recouvrir son corps de chakra, son armure de chakra, ses pieds de chakra et/ou son arme de chakra. Il possède un inventaire, une liste de jutsu, une attaque, une attaque spéciale, une défense spéciale, une défense et une vitesse. Il pourra aussi bénéficier d'un bestiaire, d'une liste de kills, d'une gestion du mode PVP (activation et actions à réaliser lorsque la personne n'est pas connecté et qu'elle subit un combat si elle accepte de subir un combat lorsqu'elle est deconnecté), liste de jutsus, liste des missions et possibilité d'abandonner celles-ci (a voir si l'abandon sert a quelque chose).  
+
+===== **** ===== Les pupilles ===== **** =====
+
 Combat: 
 
 Possibilitée d'esquiver l'attaque et de re attaquer pratiquement instantanement après ça.
@@ -52,6 +58,8 @@ gerer actions avec menu (done)
 gerer esquives + retour attaques (cliques touches clavier)
 gerer affichage des barres des vies, chakra etc... (done)
 
+
+//Ne pas s'occuper du reste
 Concernant les ninjas : chaque ninja possède un grade (genin, chunin, jonin,  kage, medecin, deserteur, etc ...). Ces grades seront accessibles au travers d'un tournoi organisé par le chef de village (décision de la date de début du tournoi et de l'heure du début du tournoi et du nombre de participants qui peuvent accéder au nouveau rang). Si le chef du village peut gérer ces paramètres c'est aussi pour faire en sorte d'avoir une durée de vie du jeu bien plus élevé et pour vraiment accentuer le coté compétition de la chose. Les ninjas possèdent bien entendu un bestiaire, une liste de cibles abattues, des armes, des armures et des objets. J'ai aussi envie de donner un aspect plus réaliste au chakra en l'utilisant de différentes manières. Marcher sur des zones d'eau, renforcer son arme avec son chakra serait des moyens d'améliorer le coté stratégique du jeu.
 
 Concernant les techniques : La dessus je m'inspire un peu du jeu shinobi. Elles seront apprises dans un temple et seront de différents types (taijutsu, ninjutsu, genjutsu). La différenciation serait par rapport à l'apprentissage de ces techniques. Concernant les techniques de ninjutsu et genjutsu je pense que la chose la plus fun tout en respectant l'univers du mangas serait d'avoir des mantras qui défileraient sur l'écran avec pour chaque mantra une touche du clavier en dessous. L'utilisateur devrait ensuite refaire cette combinaison de touches jusqu’à temps d'y arriver. Chaque essaie pourrait prendre un peu du chakra de l'utilisateur. Plus la technique est importante et plus le chakra à dépenser par tentative l'est. Le dernier point n'est bien sur pas encore totalement étudié.
