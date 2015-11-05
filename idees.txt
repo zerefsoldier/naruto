@@ -56,11 +56,19 @@ Le coefficient sera stocké au sein du serveur. A terme le plus serait de pouvoi
 mangas original. Il serait aussi bon d'avoir a terme un système permettant d'avoir des affinités forte et faible par
 rapport à d'autres, encore une fois, comme dans le mangas original.
 
-Combat: 
+===== **** ===== Les combats ==== **** =====
 
 Possibilitée d'esquiver l'attaque et de re attaquer pratiquement instantanement après ça.
 A voir si pour lancer une technique lors d'un combat il faut ou pas utiliser les signes de main.
 A voir aussi si une sequence de qte sera de mise lors de l'attaque
+
+===== **** ===== Les tournois ==== **** =====
+
+Les tournois seront organisés par le kage. Il pourra être un tournoi simple sans enjeu ou un tournoi qualitatif
+(accès à un nouveau grade). Ces tournois pourront êtres de type public (uniquement lié au village du kage ou
+à tous les villages). Concernant le grade de kage, il sera organisé un tournoi automatiquement par exemple tous les
+6 mois uniquement pour les jonins, le vainqueur affrontera le kage pour prendre sa place. Un tournoi sera aussi un
+moyen de gagner de l'argent en fonction du niveau des participants.
 
 Code serveur pour webSocket
 
