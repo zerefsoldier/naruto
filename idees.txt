@@ -2,11 +2,11 @@ Vie du jeu:
 
 ====== **** ====== Les villages ===== ***** =====
 
-5 seraient disponibles pour respecter le cadre de l'histoire : konoha, kumo, kiri, suna, iwa. Divers boutiques et lieux
-seraient aussi présents pour acheter divers choses, apprendre de nouvelles techniques, se combattre au travers de tournois
-, regonfler sa vie et son chakra, s'entrainer, passer des examens, effectuer des missions, etc.... Concernant les missions
-du ninja il pourra être prévenu par message de la part du kage ou il pourra aller consulter le panneau d'affichage des
-missions dans un batiment précis.
+5 seraient disponibles pour respecter le cadre de l'histoire : konoha, kumo, kiri, suna, iwa.
+Divers boutiques et lieux seraient aussi présents pour acheter divers choses, apprendre de nouvelles techniques, 
+se combattre au travers de tournois , regonfler sa vie et son chakra, s'entrainer, passer des examens,
+effectuer des missions, etc.... Concernant les missions du ninja il pourra être prévenu par message de la part
+du kage ou il pourra aller consulter le panneau d'affichage des missions dans un batiment précis.
 
 ====== **** ====== Les rangs ===== **** ===== 
 
