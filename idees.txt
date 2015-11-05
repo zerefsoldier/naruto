@@ -28,19 +28,16 @@ et affectation des ninjas à ces missions après acceptation du joueur) ou encor
 autres chefs de village. Lors de la création d'une mission le kage peut choisir son nom, son résumé, son type (
 exploration, chasse au trésor ou tuerie a gage et donc qui affecter à la mission), les objets a rapporter, 
 montant de la rémunération concernant la mission et sa visibilité (uniquement les personnes du village, une ou des
-personnes précises ou tout le monde).
-
-Le kage peut créer une mission de ses propres mains. Il peut donc choisir le niveau minimum requis pour la mission,
-la description et les items a rapporter ou pas. Possibilité par exemple de faire des chasses à l'homme.
-Intégrations de boutiques speciales comme la forge par exemple (ce serait sympa d'avoir quelqu'un qui s'occupe de 
-commandes de joueurs et qui crée une arme en la designant et en l'envoyant au serveur. Les statistiques seraient
-gérés en fonction des items donnés par l'acheteur de la futur arme. 
+personnes précises ou tout le monde). Il peut créer une mission de ses propres mains. Il peut donc choisir le niveau minimum requis pour la mission, la description et les items a rapporter ou pas. Possibilité par exemple de faire des chasses à l'homme. Intégrations de boutiques speciales comme la forge par exemple (ce serait sympa d'avoir quelqu'u qui s'occupe de commandes de joueurs et qui crée une arme en la designant et en l'envoyant au serveur. Les statistiques seraient gérés en fonction des items donnés par l'acheteur de la futur arme. 
+++++ Le ninja médecin ++++
 
 ===== **** ===== Les ninjas ===== **** =====
 
 Lors des combats le ninja aura la possibilité de recouvrir son corps de chakra, son armure de chakra, ses pieds de chakra et/ou son arme de chakra. Il possède un inventaire, une liste de jutsu, une attaque, une attaque spéciale, une défense spéciale, une défense et une vitesse. Il pourra aussi bénéficier d'un bestiaire, d'une liste de kills, d'une gestion du mode PVP (activation et actions à réaliser lorsque la personne n'est pas connecté et qu'elle subit un combat si elle accepte de subir un combat lorsqu'elle est deconnecté), liste de jutsus, liste des missions et possibilité d'abandonner celles-ci (a voir si l'abandon sert a quelque chose).  
 
 ===== **** ===== Les pupilles ===== **** =====
+
+Les pupilles seront générées aléatoirement et très difficile à avoir. Lors de la création du jeu, il sera décidé si oui ou non le personnage créée aura des pupilles. Elles donneront une vitesse accrue concernant le sharingan, une precision accrue au corps a corps avec le biakugan et une consommation moindre de chakra concernant les biakugans.
 
 Combat: 
 
