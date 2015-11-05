@@ -70,6 +70,15 @@ Les tournois seront organisés par le kage. Il pourra être un tournoi simple sa
 6 mois uniquement pour les jonins, le vainqueur affrontera le kage pour prendre sa place. Un tournoi sera aussi un
 moyen de gagner de l'argent en fonction du niveau des participants.
 
+===== **** ===== Les magasins ===== **** =====
+
+Plusieurs magasins seraient présents dans chaque villages. Ils seraient de différents types. Ventes d'armes et d'
+armures, ventes d'objets divers.
+
+===== **** ===== Informations visibles sur la page d'acceuil ===== **** =====
+
+Statistique des meilleurs joueurs
+
 Code serveur pour webSocket
 
 Devra gérer le deplacement des joueurs sur la map et envoyer les nouvelles position aux autres joueurs.
@@ -79,61 +88,3 @@ Code client pour webSocket
 gerer actions avec menu (done)
 gerer esquives + retour attaques (cliques touches clavier)
 gerer affichage des barres des vies, chakra etc... (done)
-
-
-//Ne pas s'occuper du reste
-Concernant les ninjas : chaque ninja possède un grade (genin, chunin, jonin,  kage, medecin, deserteur, etc ...). Ces grades seront accessibles au travers d'un tournoi organisé par le chef de village (décision de la date de début du tournoi et de l'heure du début du tournoi et du nombre de participants qui peuvent accéder au nouveau rang). Si le chef du village peut gérer ces paramètres c'est aussi pour faire en sorte d'avoir une durée de vie du jeu bien plus élevé et pour vraiment accentuer le coté compétition de la chose. Les ninjas possèdent bien entendu un bestiaire, une liste de cibles abattues, des armes, des armures et des objets. J'ai aussi envie de donner un aspect plus réaliste au chakra en l'utilisant de différentes manières. Marcher sur des zones d'eau, renforcer son arme avec son chakra serait des moyens d'améliorer le coté stratégique du jeu.
-
-Concernant les techniques : La dessus je m'inspire un peu du jeu shinobi. Elles seront apprises dans un temple et seront de différents types (taijutsu, ninjutsu, genjutsu). La différenciation serait par rapport à l'apprentissage de ces techniques. Concernant les techniques de ninjutsu et genjutsu je pense que la chose la plus fun tout en respectant l'univers du mangas serait d'avoir des mantras qui défileraient sur l'écran avec pour chaque mantra une touche du clavier en dessous. L'utilisateur devrait ensuite refaire cette combinaison de touches jusqu’à temps d'y arriver. Chaque essaie pourrait prendre un peu du chakra de l'utilisateur. Plus la technique est importante et plus le chakra à dépenser par tentative l'est. Le dernier point n'est bien sur pas encore totalement étudié.
-
-Concernant les magasins : Ceux-ci vendraient différents types d'items. Chaque arme peut être obtenu sans distinction de niveau puisque ce système sera aboli. Ce qui changerait c'est la fait de mal manipuler l'objet et soit de ne pas faire des dégâts, soit de toucher l'adversaire mais de ne pas lui faire tous les dommages prévus. J'ai aussi pensé un système ou (par exemple pour la forgerie)  un joueur peut demander à un autre joueur de lui forger une arme en lui donnant tous les items nécessaires pour la fabrication. Le forgeron ne serait autre qu'un  joueur dessinant des armes et l'envoyant au serveur de jeu pour l'autre joueur qui à demandé à avoir une arme personnalisée. Bien entendu des magasins d'arme existeraient déjà. Néanmoins le plus de ce système est d'intégrer de vrais métier au sein d'un monde virtuel.
-
-  Concernant la gestion du village : Une seule place de kage est disponible dans chaque village. Les administrateurs du jeu seront en mesure de décider au bout de combien de temps la place devra être renouvelée. Pour accéder au rang de kage, un tournoi sera organisé uniquement pour les jonins. Le meilleur de tous devra alors affronter le kage actuel et s'il gagne, sera alors choisi comme kage. L'avantage de ce système c'est d'éviter la mauvaise gestion du village de la part d'un kage durant trop longtemps et d'éviter que cette mauvaise gestion, si elle est faite exprès, fasse trop de dégâts.
-
-Concernant le joueur : Ces statistiques seront classiques (attaque, defense, vitesse, attaqueSpeciale, defenseSpeciale). Un mode PvP pourra être actif ou inactif suivant la volonté du joueur.
-
-Concernant la map : Comme vous vous en doutez la map sera divisé en plusieurs partie pour le début de la vie du jeu. Chaque joueur pourra voir les autres se déplacer sur la map.
-
-Au cours de divers réflexions j'ai maintenant quelque idées supplémentaires concernant le projet du jeu inspiré de naruto évoqué précédemment. Il est à noté que ce jeu serait jouable par navigateur.
-
-
-Concernant les villages, 5 seraient disponibles pour respecter le cadre de l'histoire : konoha, kumo, kiri, suna, iwa. Divers boutiques et lieux pour récupérer sa vie et son chakra seront aussi de la partie.
-
-Concernant les ninjas : chaque ninja possède un grade (genin, chunin, jonin,  kage, medecin, deserteur, etc ...). Ces grades seront accessibles au travers d'un tournoi organisé par le chef de village (décision de la date de début du tournoi et de l'heure du début du tournoi et du nombre de participants qui peuvent accéder au nouveau rang). Si le chef du village peut gérer ces paramètres c'est aussi pour faire en sorte d'avoir une durée de vie du jeu bien plus élevé et pour vraiment accentuer le coté compétition de la chose. Les ninjas possèdent bien entendu un bestiaire, une liste de cibles abattues, des armes, des armures et des objets. J'ai aussi envie de donner un aspect plus réaliste au chakra en l'utilisant de différentes manières. Marcher sur des zones d'eau, renforcer son arme avec son chakra serait des moyens d'améliorer le coté stratégique du jeu.
-
-Concernant les techniques : La dessus je m'inspire un peu du jeu shinobi. Elles seront apprises dans un temple et seront de différents types (taijutsu, ninjutsu, genjutsu). La différenciation serait par rapport à l'apprentissage de ces techniques. Concernant les techniques de ninjutsu et genjutsu je pense que la chose la plus fun tout en respectant l'univers du mangas serait d'avoir des mantras qui défileraient sur l'écran avec pour chaque mantra une touche du clavier en dessous. L'utilisateur devrait ensuite refaire cette combinaison de touches jusqu’à temps d'y arriver. Chaque essaie pourrait prendre un peu du chakra de l'utilisateur. Plus la technique est importante et plus le chakra à dépenser par tentative l'est. Le dernier point n'est bien sur pas encore totalement étudié.
-
-Concernant les magasins : Ceux-ci vendraient différents types d'items. Chaque arme peut être obtenu sans distinction de niveau puisque ce système sera aboli. Ce qui changerait c'est la fait de mal manipuler l'objet et soit de ne pas faire des dégâts, soit de toucher l'adversaire mais de ne pas lui faire tous les dommages prévus. J'ai aussi pensé un système ou (par exemple pour la forgerie)  un joueur peut demander à un autre joueur de lui forger une arme en lui donnant tous les items nécessaires pour la fabrication. Le forgeron ne serait autre qu'un  joueur dessinant des armes et l'envoyant au serveur de jeu pour l'autre joueur qui à demandé à avoir une arme personnalisée. Bien entendu des magasins d'arme existeraient déjà. Néanmoins le plus de ce système est d'intégrer de vrais métier au sein d'un monde virtuel.
-
-  Concernant la gestion du village : Une seule place de kage est disponible dans chaque village. Les administrateurs du jeu seront en mesure de décider au bout de combien de temps la place devra être renouvelée. Pour accéder au rang de kage, un tournoi sera organisé uniquement pour les jonins. Le meilleur de tous devra alors affronter le kage actuel et s'il gagne, sera alors choisi comme kage. L'avantage de ce système c'est d'éviter la mauvaise gestion du village de la part d'un kage durant trop longtemps et d'éviter que cette mauvaise gestion, si elle est faite exprès, fasse trop de dégâts.
-
-Concernant le joueur : Ces statistiques seront classiques (attaque, defense, vitesse, attaqueSpeciale, defenseSpeciale). Un mode PvP pourra être actif ou inactif suivant la volonté du joueur.
-
-Concernant la map : Comme vous vous en doutez la map sera divisé en plusieurs partie pour le début de la vie du jeu. Chaque joueur pourra voir les autres se déplacer sur la map.
-
-Au cours de divers réflexions j'ai maintenant quelque idées supplémentaires concernant le projet du jeu inspiré de naruto évoqué précédemment. Il est à noté que ce jeu serait jouable par navigateur.
-
-
-Concernant les villages, 5 seraient disponibles pour respecter le cadre de l'histoire : konoha, kumo, kiri, suna, iwa. Divers boutiques et lieux pour récupérer sa vie et son chakra seront aussi de la partie.
-
-Concernant les ninjas : chaque ninja possède un grade (genin, chunin, jonin,  kage, medecin, deserteur, etc ...). Ces grades seront accessibles au travers d'un tournoi organisé par le chef de village (décision de la date de début du tournoi et de l'heure du début du tournoi et du nombre de participants qui peuvent accéder au nouveau rang). Si le chef du village peut gérer ces paramètres c'est aussi pour faire en sorte d'avoir une durée de vie du jeu bien plus élevé et pour vraiment accentuer le coté compétition de la chose. Les ninjas possèdent bien entendu un bestiaire, une liste de cibles abattues, des armes, des armures et des objets. J'ai aussi envie de donner un aspect plus réaliste au chakra en l'utilisant de différentes manières. Marcher sur des zones d'eau, renforcer son arme avec son chakra serait des moyens d'améliorer le coté stratégique du jeu.
-
-Concernant les techniques : La dessus je m'inspire un peu du jeu shinobi. Elles seront apprises dans un temple et seront de différents types (taijutsu, ninjutsu, genjutsu). La différenciation serait par rapport à l'apprentissage de ces techniques. Concernant les techniques de ninjutsu et genjutsu je pense que la chose la plus fun tout en respectant l'univers du mangas serait d'avoir des mantras qui défileraient sur l'écran avec pour chaque mantra une touche du clavier en dessous. L'utilisateur devrait ensuite refaire cette combinaison de touches jusqu’à temps d'y arriver. Chaque essaie pourrait prendre un peu du chakra de l'utilisateur. Plus la technique est importante et plus le chakra à dépenser par tentative l'est. Le dernier point n'est bien sur pas encore totalement étudié.
-
-Concernant les magasins : Ceux-ci vendraient différents types d'items. Chaque arme peut être obtenu sans distinction de niveau puisque ce système sera aboli. Ce qui changerait c'est la fait de mal manipuler l'objet et soit de ne pas faire des dégâts, soit de toucher l'adversaire mais de ne pas lui faire tous les dommages prévus. J'ai aussi pensé un système ou (par exemple pour la forgerie)  un joueur peut demander à un autre joueur de lui forger une arme en lui donnant tous les items nécessaires pour la fabrication. Le forgeron ne serait autre qu'un  joueur dessinant des armes et l'envoyant au serveur de jeu pour l'autre joueur qui à demandé à avoir une arme personnalisée. Bien entendu des magasins d'arme existeraient déjà. Néanmoins le plus de ce système est d'intégrer de vrais métier au sein d'un monde virtuel.
-
-  Concernant la gestion du village : Une seule place de kage est disponible dans chaque village. Les administrateurs du jeu seront en mesure de décider au bout de combien de temps la place devra être renouvelée. Pour accéder au rang de kage, un tournoi sera organisé uniquement pour les jonins. Le meilleur de tous devra alors affronter le kage actuel et s'il gagne, sera alors choisi comme kage. L'avantage de ce système c'est d'éviter la mauvaise gestion du village de la part d'un kage durant trop longtemps et d'éviter que cette mauvaise gestion, si elle est faite exprès, fasse trop de dégâts.
-
-Concernant le joueur : Ces statistiques seront classiques (attaque, défense, vitesse, attaque spéciale, défense spéciale). Un mode PvP pourra être actif ou inactif suivant la volonté du joueur.
-
-Concernant la map : Comme vous vous en doutez la carte sera divisé en plusieurs partie pour le début de la vie du jeu. Chaque joueur pourra voir les autres se déplacer sur celle-ci. La map comportera différentes zones comme des terres arides, des terres gelées ou encore des forêts. Le coté stratégique pourrait être encore amplifié en se disant qu'une technique suiton serait mois dépensière en chakra si elle est exécutée proche d'un milieu avec de l'eau plutôt qu'avec un milieu sans.
-
-Certains png apparaitront sur la carte pour donner certains items que seul les développeurs auront fait. Cela permettra un renouvellement des items au sein du jeu.
-
- La gestion du village : Un kage peut gérer les alliances entre les villages, les traités de guerre, voir les ninjas de son village, gérer leurs grades (uniquement par exemple pour passer d'un stade classique à un stade de déserteur), voir les faits d'armes des différents ninjas, gérer une liste noire de ninjas, etc.. .
-
-Personnes recherchées
-
-Un développeur et un web designer.
-
-Si vous voulez me contacter l'adresse mail n'a pas changé. Bonne journée
