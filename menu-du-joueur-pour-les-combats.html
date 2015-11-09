@@ -16,12 +16,12 @@
 					<span>Utiliser un objet</span>
 				</div>
 				<div id="manipulationChakra">
-					<span>Intégrer du chakra à mon arme principal (Gain d'attaque)</span>
-					<span>Intégrer du chakra à mes pieds (Gain de vitesse)</span>
-					<span>Recouvrir mon corps de chakra (Gain de défense)</span>
-					<span>Enlever le chakra contenu dans mon arme</span>
-					<span>Enlever le chakra contenu dans mes pieds</span>
-					<span>Enlever le chakra de mon corps</span>
+					<span id="ajoutChakra1">Intégrer du chakra à mon arme principale (Gain d'attaque)</span>
+					<span id="ajoutChakra2">Intégrer du chakra à mes pieds (Gain de vitesse)</span>
+					<span id="ajoutChakra3">Recouvrir mon corps de chakra (Gain de défense)</span>
+					<span id="enleverChakra1">Enlever le chakra contenu dans mon arme</span>
+					<span id="enleverChakra2">Enlever le chakra contenu dans mes pieds</span>
+					<span id="enleverChakra3">Enlever le chakra de mon corps</span>
 				</div>
 			</div>
 			<div id="cadre2">
@@ -123,7 +123,7 @@ Utilisation d'un template :
 			this.position = this.anciennePosition = 0;
 			this.menuCombat = menuCombatParam;
 			this.partieMenu2 = new Partie2Menu(menuCombatParam);
-			this.manipulationChakra = [["non", 0], ["non", 0]];
+			this.manipulationChakra = [["non", 0], ["non", 0], ["non", 0]];
 		};
 		MenuPartie1.prototype.init = function(){
 			var self = this;
@@ -145,24 +145,23 @@ Utilisation d'un template :
 				}
 				else{
 					if (e.keyCode == 13 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").parent().attr("id") == "manipulationChakra")
-						var number = $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "enleverChakraArme" || $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "ajouterChakraArme" ? 0 : 1;
-						var choix = (number == 0 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "ajouterChakraArme") || (number == 1 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "ajouterChakraPied") ? "oui" : "non";
-						self.manipulationChakra[number][0] = choix;
-						if (number == 0 && choix == "oui"){
-							$("#manipulationChakra span:eq(2)").attr("class", "actif");
-							$("#manipulationChakra span:eq(0)").text("Ajuster le chakra contenu dans l'arme");
+						var number = parseInt($(".spanCibleSourieMenuCombat:eq(" + self.position + ")").text(.substring(11, 1)));
+						var choix;
+						if ($(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id").length == 12)
+							self.manipulationChakra[number - 1][0] = "oui";
+						else
+							self.manipulationChakra[number - 1] = "non";
+						if (self.manipulationChakra[number - 1] == "oui"){
+							$("#manipulationChakra span:eq(" + self.position + ")").attr("class", "actif");
+							$("#manipulationChakra span:eq(" + self.position + ")").text($("#manipulationChakra span:eq(" + self.position + ")").text().replace(new RegExp("(Intégrer|du|a)")));
 						}
-						else if (number == 1 && choix == "oui"){
+						else(number == 1 && choix == "oui"){
 							$("#manipulationChakra span:eq(3)").attr("class", "actif");
 							$("#manipulationChakra span:eq(1)").text("Ajuster le chakra contenu dans mes pieds");
 						}
 						else if (number == 0 && choix == "non"){
 							$("#manipulationChakra span:eq(0)").text("Ajouter du chakra dans mon arme");
 							$("#manipulationChakra span:eq(2)").attr("class", "inactif");
-						}
-						else{
-							$("#manipulationChakra span:eq(0)").text("Ajouter du chakra dans mes pieds");
-							$("#manipulationChakra span:eq(3)").attr("class", "inactif");
 						}
 					}
 					else{
