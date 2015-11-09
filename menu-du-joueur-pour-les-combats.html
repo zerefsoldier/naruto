@@ -1,128 +1,43 @@
+<html>
+	<head>
+		<title>Test menu combat</title>
+	</head>
+	<body>
+		<div id="menuCombat">
+			<div id="cadre1">
+				<div id="coupsStandards">
+					<span>Attaquer avec mon arme principale</span>
+					<span>Attaquer avec une arme secondaire</span>
+				</div>
+				<div id="rubriqueTechniquesEtObjets">
+					<span>Utiliser un jutsu (taijutsu)</span>
+					<span>Utiliser un jutsu (ninjutsu)</span>
+					<span>Utiliser un jutsu (genjutsu)</span>
+					<span>Utiliser un objet</span>
+				</div>
+				<div id="manipulationChakra">
+					<span>Intégrer du chakra à mon arme principal (Gain d'attaque)</span>
+					<span>Intégrer du chakra à mes pieds (Gain de vitesse)</span>
+					<span>Recouvrir mon corps de chakra (Gain de défense)</span>
+					<span>Enlever le chakra contenu dans mon arme</span>
+					<span>Enlever le chakra contenu dans mes pieds</span>
+					<span>Enlever le chakra de mon corps</span>
+				</div>
+			</div>
+			<div id="cadre2">
+				<div>
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
 <script type="text/javascript">
 //avoir le nom de l'adversaire
 $.post("ajax.php"; {"action" : "recupererDonneesPourCombat"}).done(function(datas){
 
-    var gererChakra = ["non", 0], gererChakraPourVitesse = ["non", 0];
-    var techniques  = [[], [], []];
-    var laTechnique = null;
-    var objects = [];
-    var newDatas = datas.split("&");
-    var ciblesSourie = [["#cibleSourie1", 0], ["#cibleSourie2", 0]];
-    for (var technique in newDatas[1].split("|")){
-        laTechnique = technique.split("*");
-        if (laTechnique[3] == "taijutsu")
-            techniques[0].push(laTechnique);
-        else if (laTechnique[3] == "ninjutsu")
-            techniques[1].push(laTechnique);
-        else
-            techniques.push(laTechnique);
-    }
-    for (var object in newDatas[0].split("|")){
-        objects.push(object.split("*"));
-    }
-    $(window).keyup(function(e){
-        if (e.keyCode == 48 || keyCode == 50){
-            var indice = $("#cadre2").attr("class") == "cache" ? 0 : 1;
-            var anciennePos = ciblesSourie[indice][1];
-            if (e.keyCode == 48 && anciennePos > 0)
-                ciblesSourie[indice][1]--;
-            else{
-                if (e.keyCode == 50 && (indice == 0 &&  anciennePos <= $())
-                ciblesSourie[indice][1]++;
-            }
-            $(ciblesSourie[indice][0]).children("span:eq(" + ciblesSourie[indice][anciennePos] + ")").removeAttr("id");
-            $(ciblesSourie[indice][0]).children("span:eq(" + ciblesSourie[indice][1] + ")").removeAttr("id");
-        }
-    });
-    $("#modeCombat").click(function(){
-    	if ($(this).text() == "normal")
-            $(this).text("stratège");
-    	else
-            $(this).text("normal");
-    });
-    $(".actionsTechniquesManipulationChakra").click(function(){
-	var pos = 0;
-        var etatOk = false;
-        if ($(this).attr("id") == "activerChakraArme" || $(this).attr("id") == "desactiverChakraArme"){
-            if ($(this).attr("id") == "activerChakraArme"){
-                gererChakra[0][0] = "oui";
-                $(this).attr("id", "desactiverChakraArme");
-                $(this).text("Enlever l'utilisation du chakra sur l'arme");
-                etatOk = true;
-            }
-            else{
-                gererChakra[0][0] = "non";
-                $(this).attr("id", "activerChakraArme");
-                $(this).text("Activer l'utilisation du chakra sur l'arme");
-            }
-	else{
-            pos = 1;
-            if ($(this).attr("id") == "activerChakraPieds"){
-                gererChakra[1][0] = "oui";
-                $(this).attr("id", "desactiverChakraPied");
-                $(this).text("Enlever l'utilisation du chakra en dessous des pieds");
-                etatOk = true;
-            }
-            else{
-                gererChakra[1][0] = "non";
-                $(this).attr("id", "activerChakraPied");
-                $(this).text("Activer l'utilisation du chakra en dessous des pieds");
-            }
-	}
-        if (etatOk){
-            $(document).append($("#modeAvanceCbChakraUtilisation").html());
-            $("#champChakraADepenser").focus();
-            $.post("ajax.php", {"retransmission" : $("#content").html()});
-            $("#champChakraADepenser").keydown(function(){
-                $("#pourcentageChakraDepense").text(parseInt($(this).text()) / parseInt($("#pointsRestantsChakra").text()) * 100);
-                gererChakra[pos][1] = parseInt($(this).text());
-                $.post("ajax.php", {"retransmission" : $("#content").html()});
-            });
-        }
-    });
-    $(".lancerTypeTechnique").each(function(index){
-    	$(this).click(function(){
-            afficherPageItems(techniques[index - 1], $("#templateTechnique").html());
-            $.post("ajax.php", {"retransmission" : "info", "datas" : "regarde ses techniques de " + $(this).text()});
-    	});
-    });
-    $("#inventaire").click(function(){
-	   afficherPageItems(objects, $("#templateObject").html());
-       $.post("ajax.php", {"retransmission" : "info", "datas" : "regarde ses objets"});
-    });
     
-    function afficherPageItems(items, template){
-        $("#cadre2").children(":last").html("");
-        for (var i = 0, c = parseInt(items.length / 10); i < c; i++){
-            if (i == 0)
-                $("#cadre2").children(":last").append("<span class=page id=pageCible>" + (i + 1) + "</span>");
-            else
-               $("#cadre2").children(":last").append("<span class=page>" + (i + 1) + "</span>"); 
-        }
-        $(".page").click(function(){
-            $("#pageCible").removeAttr("id");
-            $(this).attr("id", "pageCible");
-            if (10 * parseInt($("#pageCible").text()) + 10 <= items.length)
-                afficherItems(10 * parseInt($("#pageCible").text()), 10 * parseInt($("#pageCible").text()) + 10, items, template);
-            else
-                afficherItems(10 * parseInt($("#pageCible").text()), items.length, items, template);
-        });
-        if (10 <= items.length)
-            afficherItems(0, 10, items, template);
-        else
-            afficherItems(0, items.length, items, template);
-    }
-    
-    function afficherItems(deb, fin, items, template){
-        $("#cadre2").children(":first").html("");
-        for (; deb < fin; deb++){
-            $("#corps2").children(":first").append(template);
-            for (var i = 0, c = items.length; i < c; i++){
-                $("#corps2").children(":first").children(":last").children("span.cible:eq(" + i + ")");
-            }
-        }
-    }
-});
 /*
 Utilisation d'un template : 
 <div class="template" id="templateTechnique">
