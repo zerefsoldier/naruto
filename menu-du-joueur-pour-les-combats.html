@@ -95,6 +95,9 @@ $.post("ajax.php"; {"action" : "recupererDonneesPourCombat"}).done(function(data
     
 /*
 Utilisation d'un template : 
+<div class="ajouterChakra" id="templateUtilisationChakra>
+	
+</div>
 <div class="template" id="templateTechnique">
     <span>Nom de la technique : <span class="cible></span></span>
     <span>Points de dégats : <span class="cible"></span></span>
@@ -207,6 +210,8 @@ Utilisation d'un template :
 						else
 							self.manipulationChakra[number - 1][0] = "non";
 						if (self.manipulationChakra[number - 1] == "oui"){
+							$("#content").append($("#templateTechnique").html());
+							$("#")
 							$("#manipulationChakra span:eq(" + self.position + ")").attr("class", "actif");
 							$("#manipulationChakra span:eq(" + self.position + ")").text($("#manipulationChakra span:eq(" + self.position + ")").text().replace("Intégrer", "Ajuster"));
 							$("#manipulationChakra span:eq(" + self.position + ")").text($("#manipulationChakra span:eq(" + self.position + ")").text().replace("dans", "de"));
