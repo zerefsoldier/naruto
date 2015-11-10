@@ -1,7 +1,62 @@
+<style>
+	#statut{
+		transition-property: opacity;
+		transition-duration: 0.5;
+		transition-timing-function: linear;
+		position: absolute;
+		left: 20px;
+		top: 20px;
+		background-color: black;
+		width: 150px;
+		opacity: 0.6;
+		border-radius: 0 0 15px 0;
+	}
+	
+	#statut:hover{
+		transition-property: opacity;
+		transition-duration: 0.5;
+		transition-timing-function: linear;
+		opacity: 1;
+	}
+	
+	#statut img, #statut div{
+		display: inline-block;
+	}
+	
+	#statut img{
+		border-radius: 12px;
+		margin-right: 10px;
+	}
+	
+	#statut progress{
+		display: block;
+		width: 120px;
+	}
+	
+	#chakra{
+		background-color: rgb(83, 68, 182);
+		color: rgb(15, 0, 110);
+	}
+	
+	#vie{
+		background-color: rgb(93, 215, 93);
+		color: 9, 128, 9;
+	}
+</style>
 <html>
 	<head>
 		<title>Test menu combat</title>
 	</head>
+	<div id="statut">
+		<img src="uneImageDeTest.png" />
+		<div>
+			<progress id="chakra" val="100"></progress>
+			<progress id="vie" val="100"></progress>	
+		</div>
+		<!--
+			Ce statut sera une partie constamment visible aux yeux du joueur.
+		-->
+	</div>
 	<body>
 		<div id="menuCombat">
 			<div id="cadre1">
