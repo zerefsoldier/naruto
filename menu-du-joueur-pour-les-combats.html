@@ -150,20 +150,18 @@ Utilisation d'un template :
 						if ($(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id").length == 12)
 							self.manipulationChakra[number - 1][0] = "oui";
 						else
-							self.manipulationChakra[number - 1] = "non";
+							self.manipulationChakra[number - 1][0] = "non";
 						if (self.manipulationChakra[number - 1] == "oui"){
 							$("#manipulationChakra span:eq(" + self.position + ")").attr("class", "actif");
 							$("#manipulationChakra span:eq(" + self.position + ")").text($("#manipulationChakra span:eq(" + self.position + ")").text().replace("Intégrer", "Ajuster"));
 							$("#manipulationChakra span:eq(" + self.position + ")").text($("#manipulationChakra span:eq(" + self.position + ")").text().replace("dans", "de"));
 							$("#manipulationChakra span:eq(" + self.position + ")").text($("#manipulationChakra span:eq(" + self.position + ")").text().replace("du", "le"));
 						}
-						else(number == 1 && choix == "oui"){
-							$("#manipulationChakra span:eq(3)").attr("class", "actif");
-							$("#manipulationChakra span:eq(1)").text("Ajuster le chakra contenu dans mes pieds");
-						}
-						else if (number == 0 && choix == "non"){
-							$("#manipulationChakra span:eq(0)").text("Ajouter du chakra dans mon arme");
-							$("#manipulationChakra span:eq(2)").attr("class", "inactif");
+						else{
+							$("#manipulationChakra span:eq(" + self.position + ")").attr("class", "inactif");
+							$("#manipulationChakra span:eq(" + self.position + ")").text($("#manipulationChakra span:eq(" + self.position + ")").text().replace("Ajuster", "Intégrer"));
+							$("#manipulationChakra span:eq(" + self.position + ")").text($("#manipulationChakra span:eq(" + self.position + ")").text().replace("de", "dans"));
+							$("#manipulationChakra span:eq(" + self.position + ")").text($("#manipulationChakra span:eq(" + self.position + ")").text().replace("le", "du"));	
 						}
 					}
 					else{
