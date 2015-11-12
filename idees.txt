@@ -78,8 +78,12 @@ armures, ventes d'objets divers.
 ===== **** ===== Les objets ===== **** =====
 
 Différents types d'objets seraient disponibles. Des objets pourraient êtres créés à partir d'autres objets. Une arme
-par exemple pourraient être forgée comme cela. Chaque objets ont des attributs comme les malus qu'ils peuvent infligés
-ou leurs solidité seulement pour la création d'armes. Le jeu bien entendu possédera des objets par défaut. 
+par exemple pourraient être forgée comme cela. Chaque objets ont des attributs comme les malus qu'ils peuvent infliger
+ou leurs solidité seulement pour la création d'armes par exemple. Le jeu bien entendu possédera des objets par défaut.
+Plus les objets valent chère et plus l'arme vaudra chère. Plus le nombre d'objets sera élevé pour la construction
+d'armes et plus l'arme sera chère. En effet si l'utilisateur forge une lame avec plus de fer qu'une autre alors celle
+-ci vaudra plus chère. De même si l'utilisateur forge une lame avec 1 bout d'acier plutot qu'avec deux bouts de fer
+alors celle-ci sera plus chère.
 
 ===== **** ===== Informations visibles sur la page d'acceuil ===== **** =====
 
