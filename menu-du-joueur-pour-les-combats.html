@@ -332,12 +332,18 @@ var Combat = function(){
 			if (parseInt($("#vie").val()) - parseInt(datasSplit[2]) >= 1){
 				$("#vie").val(parseInt($("#vie").val()) - parseInt(datasSplit[2]));
 				$("#etat").text(datasSplit[3]); // etat empoisonné, sain ou paralysé par exemple
+				if ($("#etat").text() == "empoisonné")
+					$("#vie").text(parseInt($("#vie").val()) * 0.9);
+				if (parseInt($("#vie").val()) <= 0){
+					webSocket.send("combat*fin*perdu");
+					toastr.info("Vous avez perdu le combat", "Etat de la partie");
+				}
 			}
 			else{
 				//etat mort : fin du combat
 				webSocket.send("combat*fin*perdu");
+				toastr.info("Vous avez perdu le combat", "Etat de la partie");
 			}
-				
 		}, 1500);
 	};
 	
