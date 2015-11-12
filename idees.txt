@@ -75,6 +75,12 @@ moyen de gagner de l'argent en fonction du niveau des participants.
 Plusieurs magasins seraient présents dans chaque villages. Ils seraient de différents types. Ventes d'armes et d'
 armures, ventes d'objets divers.
 
+===== **** ===== Les objets ===== **** =====
+
+Différents types d'objets seraient disponibles. Des objets pourraient êtres créés à partir d'autres objets. Une arme
+par exemple pourraient être forgée comme cela. Chaque objets ont des attributs comme les malus qu'ils peuvent infligés
+ou leurs solidité seulement pour la création d'armes. Le jeu bien entendu possédera des objets par défaut. 
+
 ===== **** ===== Informations visibles sur la page d'acceuil ===== **** =====
 
 Statistique des meilleurs joueurs
