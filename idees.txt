@@ -28,9 +28,15 @@ et affectation des ninjas à ces missions après acceptation du joueur) ou encor
 autres chefs de village. Lors de la création d'une mission le kage peut choisir son nom, son résumé, son type (
 exploration, chasse au trésor ou tuerie a gage et donc qui affecter à la mission), les objets a rapporter, 
 montant de la rémunération concernant la mission et sa visibilité (uniquement les personnes du village, une ou des
-personnes précises ou tout le monde). Il peut créer une mission de ses propres mains. Il peut donc choisir le niveau minimum requis pour la mission, la description et les items a rapporter ou pas. Possibilité par exemple de faire des chasses à l'homme. Intégrations de boutiques speciales comme la forge par exemple (ce serait sympa d'avoir quelqu'u qui s'occupe de commandes de joueurs et qui crée une arme en la designant et en l'envoyant au serveur. Les statistiques seraient gérés en fonction des items donnés par l'acheteur de la futur arme. 
+personnes précises ou tout le monde). Il peut créer une mission de ses propres mains. Il peut donc choisir le niveau
+minimum requis pour la mission, la description et les items a rapporter ou pas. Possibilité par exemple de faire des
+chasses à l'homme. Intégrations de boutiques speciales comme la forge par exemple (ce serait sympa d'avoir quelqu'u
+qui s'occupe de commandes de joueurs et qui crée une arme en la designant et en l'envoyant au serveur. Les statistiqu
+es seraient gérés en fonction des items donnés par l'acheteur de la futur arme. 
 ++++ Le ninja médecin ++++
-Comme dans l'anime il pourra recuperer les pupilles d'un autre ninja s'il les possèdent lors d'un combat a mort. Celles-ci seront ensuite disposées dans son inventaire et ensuite donné à une personne de son choix. Cette option de jeu est à étudié plus profondémment bien entendu.
+Comme dans l'anime il pourra recuperer les pupilles d'un autre ninja s'il les possèdent lors d'un combat a mort.
+Celles-ci seront ensuite disposées dans son inventaire et ensuite donné à une personne de son choix. Cette option de
+jeu est à étudié plus profondémment bien entendu.
 
 ===== **** ===== Les ninjas ===== **** =====
 
