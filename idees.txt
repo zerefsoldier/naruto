@@ -60,7 +60,9 @@ rapport à d'autres, encore une fois, comme dans le mangas original.
 
 Possibilitée d'esquiver l'attaque et de re attaquer pratiquement instantanement après ça.
 A voir si pour lancer une technique lors d'un combat il faut ou pas utiliser les signes de main.
-A voir aussi si une sequence de qte sera de mise lors de l'attaque
+A voir aussi si une sequence de qte sera de mise lors de l'attaque. Il serait aussi intéressant d'avoir un système ou
+le joueur peut changer d'arme en combat en ayant bien sur un objet approprié (un objet derrière le dos permettant 
+de faire cela par exemple).
 
 ===== **** ===== Les tournois ==== **** =====
 
