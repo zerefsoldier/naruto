@@ -46,7 +46,7 @@ possibilité d'abandonner celles-ci (a voir si l'abandon sert a quelque chose).
 
 Les pupilles seront générées aléatoirement et très difficile à avoir. Lors de la création du jeu, il sera décidé si
 oui ou non le personnage créée aura des pupilles. Elles donneront une vitesse accrue concernant le sharingan, une
-precision accrue au corps a corps avec le biakugan et une consommation moindre de chakra concernant les biakugans.
+precision accrue au corps a corps avec le biakugan et une consommation moindre de chakra concernant les rinnengans.
 
 ===== **** ===== Les jutsus ===== **** =====
 
