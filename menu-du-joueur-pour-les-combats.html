@@ -54,6 +54,7 @@
 			<progress id="vie" val="" max=""></progress>
 			<p>Rang : <span id="statut"></span></p>
 			<p>Nombre de kills : <span id="nbKills"></span></p>
+			<p>Etat : <span id="etat"></span></p>
 		</div>
 		<!--
 			Ce statut sera une partie constamment visible aux yeux du joueur.
@@ -63,8 +64,8 @@
 		<div id="menuCombat">
 			<div id="cadre1">
 				<div id="coupsStandards">
-					<span>Attaquer avec mon arme principale</span>
-					<span>Attaquer avec une arme secondaire</span>
+					<span id="attaqueArme">Attaquer avec mon arme principale</span>
+					<span id="attaquePoings">Attaquer à mains nues</span>
 				</div>
 				<div id="rubriqueTechniquesEtObjets">
 					<span>Utiliser un jutsu (taijutsu)</span>
@@ -79,6 +80,12 @@
 					<span id="enleverChakra1">Enlever le chakra contenu dans mon arme</span>
 					<span id="enleverChakra2">Enlever le chakra contenu dans mes pieds</span>
 					<span id="enleverChakra3">Enlever le chakra de mon corps</span>
+				</div>
+				<div id="changeArme">
+					<!--
+						Si le joueur peut changer d'arme par l'intermediaire d'un objet
+						<span>Changer d'arme</span>
+					-->
 				</div>
 			</div>
 			<div id="cadre2">
@@ -175,7 +182,7 @@ Utilisation d'un template :
 						if (parseInt($("#barreVie").attr("value")) > parseInt($(".spanVuePart2Menu").children("span:eq(4)"))){
 							//si le gars a assez de chakra
 							$.post("ajax.php", {"coup" : "technique", "code" : $(".spanVuePart2Menu").children("span:eq(0)").text()}.done(function(datas){
-								$("#barreVie").attr("value", parseInt($("#barreVie").attr("value")) - parseInt($(".spanVuePart2Menu").children("span:eq(4)")));
+								$("#barreChakra").attr("value", parseInt($("#barreChakra").attr("value")) - parseInt($(".spanVuePart2Menu").children("span:eq(4)")));
 							});
 						}
 						else
@@ -251,8 +258,12 @@ Utilisation d'un template :
 						}
 					}
 					else{
-						if (e.keyCode == 13 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id") == "attaquerAvecArme")
-							$.post("ajax.php", "coup" : "attaqueSimple", "chakraDansArme" : self.manipulerChakra[0][0], "valeurChakraArme" : self.manipulerChakra[0][1], "chakraDansPieds" : self.manipulerChakra[1][0], "valeurChakraPieds" : self.manipulerChakra[1][1]}); 
+						if (e.keyCode == 13 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").parent().attr("id") == "coupsStandards")
+							$.post("ajax.php", "coup" : "attaqueSimple", "chakraDansCoup" : self.manipulerChakra[0][0], "valeurChakraCoup" : self.manipulerChakra[0][1], "chakraDansPied" : self.manipulerChakra[1][0], "valeurChakraPieds" : self.manipulerChakra[1][1], "chakraDansCorps" : self.manipulerChakra[2][0], "valeurChakraDansCorps" : self.manipulerChakra[2][1], "typeAttaque" : $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id"), "armePrincipale" : joueur.getArmePrincipale().getNom()});
+						else{
+							if (e.keyCode == 13 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").parent().attr("id") == "changerArme")
+								joueur.changeArmePrincipale(); 	
+						}
 					}
 				}
 			});
@@ -312,13 +323,16 @@ var Combat = function(){
 	
 	Combat.prototype.lanceEsquive = function(datasSplit){
 		$(window).keydown(function(e){
-			if (e.keyCode == "touche e")
+			if (e.keyCode == "touche e"){
 				clearTimeout(timeout);
+			}
 		});
 		var timeout = setTimeout(function(){
 			// code a executer si le joueur n'esquive pas
-			if (parseInt($("#vie").val()) - parseInt(datasSplit[1]) >= 1)
-				$("#vie").val(parseInt($("#vie").val()) - parseInt(datasSplit[1]));
+			if (parseInt($("#vie").val()) - parseInt(datasSplit[2]) >= 1){
+				$("#vie").val(parseInt($("#vie").val()) - parseInt(datasSplit[2]));
+				$("#etat").text(datasSplit[3]); // etat empoisonné, sain ou paralysé par exemple
+			}
 			else{
 				//etat mort : fin du combat
 				webSocket.send("combat*fin*perdu");
@@ -343,9 +357,6 @@ var Combat = function(){
 				}
 				else
 					toastr.succes("Vous avez gagné contre " + joueur.getAdversaire());
-			break;
-			case "deplacementMap":
-				//un joueur s'est deplacé sur la map : refresh position
 			break;
 		}
 	};
