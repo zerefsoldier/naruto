@@ -315,8 +315,12 @@ var Combat = function(){
 			if (e.keyCode == "touche e")
 				clearTimeout(timeout);
 		});
-		var timeout = setTimeout(function(datas){
-			// code a executer si le joueur n'esquive pas	
+		var timeout = setTimeout(function(){
+			// code a executer si le joueur n'esquive pas
+			if (parseInt($("#vie").val()) - parseInt(datasSplit[1]) >= 1)
+				$("#vie").val(parseInt($("#vie").val()) - parseInt(datasSplit[1]));
+			else
+				//etat mort : fin du combat
 		}, 1500);
 	};
 	
