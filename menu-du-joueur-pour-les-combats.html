@@ -308,4 +308,33 @@ Utilisation d'un template :
 	return MenuCombat;
 });
 
+var Combat = function(){
+	
+	Combat.prototype.lanceEsquive = function(datasSplit){
+		$(window).keydown(function(e){
+			if (e.keyCode == "touche e")
+				clearTimeout(timeout);
+		});
+		var timeout = setTimeout(function(datas){
+			// code a executer si le joueur n'esquive pas	
+		}, 1500);
+	};
+	
+	return Combat;
+};
+
+(function(){
+	var webSocket = new WebSocket("url du serveur");
+	webSocket.receiveDatas = function(datas){
+		var datasSplit[] = datas.split("*");
+		switch (datasSplit[0]){
+			case "actionCombat":
+				//informe l'utilisateur d'esquiver une action
+				$("#content").append("<img src=images/esquive.png");
+				Combat.lanceEsquive(datasSplit);
+			break;
+		}
+	};
+})();
+
 </script>
