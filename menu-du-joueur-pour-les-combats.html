@@ -319,8 +319,11 @@ var Combat = function(){
 			// code a executer si le joueur n'esquive pas
 			if (parseInt($("#vie").val()) - parseInt(datasSplit[1]) >= 1)
 				$("#vie").val(parseInt($("#vie").val()) - parseInt(datasSplit[1]));
-			else
+			else{
 				//etat mort : fin du combat
+				webSocket.send("combat*fin*perdu");
+			}
+				
 		}, 1500);
 	};
 	
@@ -329,13 +332,20 @@ var Combat = function(){
 
 (function(){
 	var webSocket = new WebSocket("url du serveur");
-	webSocket.receiveDatas = function(datas){
+	webSocket.onMessage = function(datas){
 		var datasSplit[] = datas.split("*");
 		switch (datasSplit[0]){
-			case "actionCombat":
-				//informe l'utilisateur d'esquiver une action
-				$("#content").append("<img src=images/esquive.png");
-				Combat.lanceEsquive(datasSplit);
+			case "combat":
+				if (datasSplit[1] == "continue"){
+					//informe l'utilisateur d'esquiver une action
+					$("#content").append("<div id=equive><img src=images/esquive.png /><span>Appuyer sur " + (Math.floor(Math.random() * (max - min)) + min)"</span></div>");
+					Combat.lanceEsquive(datasSplit);	
+				}
+				else
+					toastr.succes("Vous avez gagné contre " + joueur.getAdversaire());
+			break;
+			case "deplacementMap":
+				//un joueur s'est deplacé sur la map : refresh position
 			break;
 		}
 	};
