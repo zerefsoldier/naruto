@@ -166,6 +166,8 @@
 						$(window).removeEvent("click");
 					}, 2000);
 				}
+				else if (estEsquive == null && e.keyCode != "touche E")
+					estEsquive = false;
 				else{
 					if (estEsquive){
 						switch (e.keyCode){
