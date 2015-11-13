@@ -68,10 +68,10 @@
 					<span id="attaquePoings">Attaquer à mains nues</span>
 				</div>
 				<div id="rubriqueTechniquesEtObjets">
-					<span>Utiliser un jutsu (taijutsu)</span>
-					<span>Utiliser un jutsu (ninjutsu)</span>
-					<span>Utiliser un jutsu (genjutsu)</span>
-					<span>Utiliser un objet</span>
+					<span id="0">Utiliser un jutsu (taijutsu)</span>
+					<span id="1">Utiliser un jutsu (ninjutsu)</span>
+					<span id="2">Utiliser un jutsu (genjutsu)</span>
+					<span id="3">Utiliser un objet</span>
 				</div>
 				<div id="manipulationChakra">
 					<span id="ajoutChakra1">Intégrer du chakra dans mon arme principale (Gain d'attaque)</span>
@@ -207,13 +207,10 @@ Utilisation d'un template :
  */
 	var MenuPartie2 = (function(){
 		MenuPartie2.prototype.MenuPartie2 = function(menuCombatParam)[
-			this.position = this.anciennePosition = 0;
-			this.menuCombat = menuCombatParam;
-			this.pageDeb = 1;
+			this.position = 0;
 			this.pageFin = parseInt($(".page").last().text());
 			this.pageCourante = 1;
 			this.position = 0;
-			this.indice = null;
 		}
 		MenuPartie2.prototype.init = function(indiceParam){
 			$("#cadre2").focus();
@@ -295,12 +292,10 @@ Utilisation d'un template :
 						self.position++;
 					$("#cadre1").children("span:eq(" + self.anciennePosition + ")").removeAttr("class");
 					$("#cadre1").children("span:eq(" + self.position + ")").attr("class", "spanCibleSourieMenuCombat");
-					if ($("#cadre1").children("span:eq(" + self.position + ")").parent().attr("id") != "rubriqueTechniquesEtObjets")
-						$("#cadre2").attr("class", "cache");
 				}
 				else if (e.keyCode == 49 && $(".spanCibleSourieMenuCombat:eq(0)").parent().attr("id") == "rubriqueTechniquesEtObjets"){
-					self.menuCombat.afficherItems(self.position - 1 - $("#rubriqueTechniquesEtObjets span").size(), 0, true);
-					self.partie2Menu.init(self.position - 1 - $("#rubriqueTechniquesEtObjets span").size());
+					self.menuCombat.afficherItems(joueur.getItems(self.position), 0, true);
+					self.partie2Menu.init();
 				}
 				else{
 					if (e.keyCode == 13 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").parent().attr("id") == "manipulationChakra")
@@ -312,10 +307,12 @@ Utilisation d'un template :
 							self.manipulationChakra[number - 1][0] = "non";
 						if (self.manipulationChakra[number - 1][0] == "oui"){
 							$("#content").append($("#ajouterChakraTemplate").html());
+							$("#doseChakra").focus();
 							$("#ajouterChakra button").click(function(){
 								if ($(this).attr("id") == "annuler"){
 									self.manipulationChakra[number - 1][0] = "non";
 									$("#ajouterChakra").remove();
+									$("#cadre1").focus();
 								}
 								else{
 									if (parseInt($("#doseChakra").val()) >= 1){
@@ -355,12 +352,12 @@ Utilisation d'un template :
 	});
 	//checked
 	var MenuCombat = (function(){
+		
 	MenuCombat.prototype.MenuCombat = function(lesTechniques, lesObjets){
 		this.partie1Menu = new Partie1Menu(this);
-		this.techniques = lesTechniques;
-		this.objets = lesObjets;
 		this.partie1Menu.init();
 	};
+	
 	MenuCombat.prototype.afficherPageItems = function(indice, items){
 		var self = this;
 		$("#cadre2").children(":last").html("");
@@ -372,12 +369,8 @@ Utilisation d'un template :
 		}
 		if ($(".page").size() % 10 != 0)
 			$("#cadre2").children(":last").children(":last").remove();
-		$(".page").click(function(){
-			$("#pageCible").removeAttr("id");
-			$(this).attr("id", "pageCible");
-			self.afficherItems(indice, parseInt($(this).text()), false);
-		});
 	};
+	
 	MenuCombat.prototype.afficherItems = function(indice, page, initialisation){
 	$("#cadre2").children(":first").html();
 	var fin = page * 10 + 10;
@@ -401,63 +394,5 @@ Utilisation d'un template :
 	};
 	return MenuCombat;
 });
-
-var Combat = function(){
-	
-	Combat.prototype.lanceEsquive = function(datasSplit){
-		$(window).keydown(function(e){
-			var estEsquive = null;
-			if (estEsquive == null && e.keyCode == "touche e"){
-				clearTimeout(timeout);
-				$("#content").append($("#retourAttaqueRapide").html());
-				estEsquive = true;
-				timeout = setTimeout(function(){
-					$(window).removeEvent("click");
-				}, 2000);
-			}
-			else{
-				if (estEsquive){
-					switch (e.keyCode){
-						case "toucheT":
-							//retour attaque epee
-							if (joueur.getArmePrincipale().exist())
-								webSocket.send("combat*attaqueSimple*arme*" + joueur.getArmePrincipale().getId());
-							else
-								webSocket.send("combat*attaqueSimple*poings");
-						break;
-						case "toucheF":
-							//utilisation d'une technique
-							if (joueur.getTechniqueALancerApresEsquive().getConsommationChakra() < parseInt($("barreChakra").val()))
-								webSocket.send("combat*attaqueJutsu*" + joueur.getTechniqueALancerApresEsquive().getNom());
-						break;
-					}
-				}
-			}
-		
-		});
-		var timeout = setTimeout(function(){
-			// code a executer si le joueur n'esquive pas
-			if (parseInt($("#vie").val()) - parseInt(datasSplit[2]) >= 1){
-				$("#vie").val(parseInt($("#vie").val()) - parseInt(datasSplit[2]));
-				$("#etat").text(datasSplit[3]); // etat empoisonné, sain ou paralysé par exemple
-				if ($("#etat").text() == "empoisonné")
-					$("#vie").text(parseInt($("#vie").val()) * 0.9);
-				if (parseInt($("#vie").val()) <= 0){
-					webSocket.send("combat*fin*perdu");
-					toastr.info("Vous avez perdu le combat", "Etat de la partie");
-				}
-			}
-			else{
-				//etat mort : fin du combat
-				webSocket.send("combat*fin*perdu");
-				toastr.info("Vous avez perdu le combat", "Etat de la partie");
-			}
-		}, 1500);
-	};
-	
-	return Combat;
-};
-
-
 
 </script>
