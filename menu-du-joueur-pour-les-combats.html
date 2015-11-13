@@ -50,11 +50,11 @@
 	<div id="statut">
 		<img src="uneImageDeTest.png" />
 		<div>
-			<progress id="chakra" val="" max=""></progress>
-			<progress id="vie" val="" max=""></progress>
-			<p>Rang : <span id="statut"></span></p>
-			<p>Nombre de kills : <span id="nbKills"></span></p>
-			<p>Etat : <span id="etat"></span></p>
+			<progress class="chakra" val="" max=""></progress>
+			<progress class="vie" val="" max=""></progress>
+			<p>Rang : <span class="statut"></span></p>
+			<p>Nombre de kills : <span class="nbKills"></span></p>
+			<p>Etat : <span class="etat"></span></p>
 		</div>
 		<!--
 			Ce statut sera une partie constamment visible aux yeux du joueur.
@@ -110,6 +110,12 @@
 					$("#content").append("<div id=equive><img src=images/esquive.png /><span>Appuyer sur " + (Math.floor(Math.random() * (max - min)) + min)"</span></div>");
 					Combat.lanceEsquive(datasSplit);	
 				}
+				else if (datasSplit[1] == "refreshStatsAdversaire"){
+					var stats = datasSplit[2].split("|");
+					$(".vie:eq(1)").val(stats[0]);
+					$(".chakra:eq(1)").val(stats[1]);
+					$(".etat:eq(1)").text(stats[2]);
+				}
 				else if (datasSplit[1] == "fin")
 					toastr.succes("Vous avez gagné contre " + joueur.getAdversaire());
 				else{}
@@ -124,6 +130,7 @@
 			$("#content").html("< img src=" + joueur.getSkin() + " id=votreJoueur />");
 			$("#content").append("img src=" + joueurAdverse + " /> id=joueurAdverse");
 			$("#content").append($("#templateMenuCombat").html());
+			$("#content").append("<div id=statutAdverse>" + $("#statut").html() + "</div>");
 			this.menuCombat = new MenuCombat();
 		}
 		
@@ -169,9 +176,10 @@
 						webSocket.send("combat*fin*perdu");
 						toastr.info("Vous avez perdu le combat", "Etat de la partie");
 					}
+					else
+						webSocket.send("combat*statutAdversaire*" + $(".vie:eq(0)").val() + "|" + $(".chakra:eq(0)").val() + $(".statut:eq(0)").text());
 				}
 				else{
-					//etat mort : fin du combat
 					webSocket.send("combat*fin*perdu");
 					toastr.info("Vous avez perdu le combat", "Etat de la partie");
 				}
