@@ -231,17 +231,17 @@ Utilisation d'un template :
 					$(this).attr("class", "cache");
 					$("#cadre1").focus();
 				}
-				else if ((e.keyCode == 48 && (($(self).children("div:eq(" + self.position - 1 + ")").html() == $(self).children(":first").html() && self.pageCourante != 1) || ($(self).children("div:eq(" + self.position - 1 + ")").html() != $(self).children(":first").html()))) || (e.keyCode == 50 && (($(self).children("div:eq(" + self.position + 1 + ")").html() == $(self).children(":last").html() && self.pageCourante < self.pageFin)))){
-					if (e.keyCode == 48 && $(self).children("div:eq(" + self.position - 1 + ")").html() == $(self).children(":first").html()){
+				else if (e.keyCode == 48 && self.position == 0 && self.pageCourante != -1 || e.keyCode == 48 && self.position != 0 || e.keyCode == 50 && self.position == 10 && self.pageCourante != parseInt($(".page").children(":last").text()) || e.keyCode == 50 && self.position != 10 && $("partMenu2").children(":div:eq(" + self.position + ")").html() != $("partMenu2").children("div:last").html()){
+					if (e.keyCode == 48 && self.position == 0 && self.pageCourante != -1){
 						self.pageCourante -= 1;
 						self.position = 0;
 						$("#pageCible").removeAttr("id");
 						$(".page:eq(" + (self.pageCourante - 1) + ")").attr("id", "pageCible");
 						pageChange = true;
 					}
-					else if (e.keyCode == 48 && $(self).children("div:eq(" + self.position - 1 + ")").html() != $(self).children(":first").html())
+					else if (e.keyCode == 48 && self.position != 0)
 						self.position--;
-					else if (e.keyCode == 50 && $("#cadre2").children(":last").html() == $("#cadre2").children("span:eq(" + self.position + ")").html()){
+					else if (e.keyCode == 50 && self.position == 10 && self.pageCourante != parseInt($(".page").children(":last").text())){
 						self.pageCourante += 1;
 						self.position = 0;
 						$("#pageCible").removeAttr("id");
