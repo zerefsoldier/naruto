@@ -113,6 +113,55 @@
 <script type="text/javascript">
 //avoir le nom de l'adversaire
 (function(){
+	var Joueur = function(){};
+	
+	Joueur.prototype.init = function(datas){
+		this.village = "village";
+		this.nom = "nom";
+		this.niveau = "niveau";
+		this.experience = "experience";
+		this.experienceAvantProchainNiveau = "valeur";
+		this.attaque = "valeur";
+		this.defense = "defense";
+		this.attaqueSpeciale = "valeur";
+		this.defenseSpeciale = "valeur";
+		this.vitesse = "valeur";
+		this.vie = "valeur";
+		this.chakra = "valeur";
+		this.rang = "valeur";
+		this.armePrincipale = "valeur";
+		this.armeSecondaire = "valeur";
+		this.armure = "valeur";
+		this.casque = "valeur";
+		this.map = "valeur";
+		this.positionMap = "valeur";
+		this.argent = "valeur";
+		this.techniques = [];
+		this.objets = [];
+		this.missions = [];
+		var lesTechniques = "" //spliter les techniques sur l'indice n grace au caractere |
+		for (var laTechnique in lesTechniques){
+			this.techniques[i].push(new Technique(laTechnique.split("|||")));
+		}
+		var lesTypesDObjets = "" // spliter les objets sur l'indice n grace au caractere |
+		var lesObjetsDuType = "";
+		for (var i = 0, c = lesTypesDObjets.length; i < c; i++){
+			lesObjetsDuType = "" // //spliter les techniques sur l'indice i grace au caractere ||
+			for (var lObjetDuType in lesObjetsDuType){
+				this.objets[i].push(new Objet(lObjetDuType.split("|||")))
+			}
+		}
+		var lesTypesDeMissions = "" // spliter les missions sur l'indice n grace au caractere |
+		var lesMissionsDuType = "";
+		for (var i = 0, c = lesTypesDeMissions.length; i < c; i++){
+			lesObjetsDuType = "" // //spliter les techniques sur l'indice i grace au caractere ||
+			for (var lObjetDuType in lesObjetsDuType){
+				this.objets[i].push(new Objet(lObjetDuType.split("|||")))
+			}
+		}
+		
+ 	}
+	
 	var webSocket = new WebSocket("http://url");
 	webSocket.onMessage = function(datas){
 		var datasSplit = datas.split("*");
