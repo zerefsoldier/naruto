@@ -323,9 +323,34 @@ var Combat = function(){
 	
 	Combat.prototype.lanceEsquive = function(datasSplit){
 		$(window).keydown(function(e){
-			if (e.keyCode == "touche e"){
+			var estEsquive = null;
+			if (estEsquive == null && e.keyCode == "touche e"){
 				clearTimeout(timeout);
+				$("#content").append($("#retourAttaqueRapide").html());
+				estEsquive = true;
+				timeout = setTimeout(function(){
+					$(window).removeEvent("click");
+				}, 2000);
 			}
+			else{
+				if (estEsquive){
+					switch (e.keyCode){
+						case "toucheT":
+							//retour attaque epee
+							if (joueur.getArmePrincipale().exist())
+								webSocket.send("combat*attaqueSimple*arme*" + joueur.getArmePrincipale().getId());
+							else
+								webSocket.send("combat*attaqueSimple*poings");
+						break;
+						case "toucheF":
+							//utilisation d'une technique
+							if (joueur.getTechniqueALancerApresEsquive().getConsommationChakra() < parseInt($("barreChakra").val()))
+								webSocket.send("combat*attaqueJutsu*" + joueur.getTechniqueALancerApresEsquive().getNom());
+						break;
+					}
+				}
+			}
+		
 		});
 		var timeout = setTimeout(function(){
 			// code a executer si le joueur n'esquive pas
@@ -356,13 +381,14 @@ var Combat = function(){
 		var datasSplit[] = datas.split("*");
 		switch (datasSplit[0]){
 			case "combat":
-				if (datasSplit[1] == "continue"){
+				if (datasSplit[1] == "attaque"){
 					//informe l'utilisateur d'esquiver une action
 					$("#content").append("<div id=equive><img src=images/esquive.png /><span>Appuyer sur " + (Math.floor(Math.random() * (max - min)) + min)"</span></div>");
 					Combat.lanceEsquive(datasSplit);	
 				}
-				else
+				else if (datasSplit[1] == "fin")
 					toastr.succes("Vous avez gagné contre " + joueur.getAdversaire());
+				else{}
 			break;
 		}
 	};
