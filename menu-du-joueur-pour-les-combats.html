@@ -207,14 +207,13 @@ Utilisation d'un template :
  */
 	var MenuPartie2 = (function(){
 		MenuPartie2.prototype.MenuPartie2 = function(menuCombatParam)[
-			this.position = 0;
+			this.position = this.anciennePosition = 0;
 			this.pageFin = parseInt($(".page").last().text());
 			this.pageCourante = 1;
 			this.position = 0;
 		}
-		MenuPartie2.prototype.init = function(indiceParam){
+		MenuPartie2.prototype.init = function(){
 			$("#cadre2").focus();
-			this.indice = indiceParam;
 			var self = this;
 			$(".page").click(function(){
 				self.pageCourante = parseInt($(this).text());
@@ -232,17 +231,13 @@ Utilisation d'un template :
 					if (e.keyCode == 48 && self.position == 0 && self.pageCourante != -1){
 						self.pageCourante -= 1;
 						self.position = 0;
-						$("#pageCible").removeAttr("id");
-						$(".page:eq(" + (self.pageCourante - 1) + ")").attr("id", "pageCible");
 						pageChange = true;
 					}
 					else if (e.keyCode == 48 && self.position != 0)
 						self.position--;
-					else if (e.keyCode == 50 && self.position == 10 && self.pageCourante != parseInt($(".page").children(":last").text())){
+					else if (e.keyCode == 50 && self.position == 10 && self.pageCourante != self.pageFin){
 						self.pageCourante += 1;
 						self.position = 0;
-						$("#pageCible").removeAttr("id");
-						$(".page:eq(" + (self.pageCourante - 1) + ")").attr("id", "pageCible");
 						pageChange = true;
 					}
 					else
@@ -276,7 +271,7 @@ Utilisation d'un template :
 	//checked
 	var MenuPartie1 = (function(){
 		MenuPartie1.prototype.MenuPartie1 = function(menuCombatParam)[
-			this.position = this.anciennePosition = 0;
+			this.position = 0;
 			this.menuCombat = menuCombatParam;
 			this.partieMenu2 = new Partie2Menu(menuCombatParam);
 			this.manipulationChakra = [["non", 0], ["non", 0], ["non", 0]];
@@ -285,12 +280,11 @@ Utilisation d'un template :
 			var self = this;
 			$("#cadre1").keyup(function(e){
 				if ((e.keyCode == 48 && self.position > 0) || (e.keyCode == 50 && self.position < $("#cadre1 span").size() - 2)){
-					self.anciennePosition = self.position;
 					if (e.keyCode == 48)
 						self.position--;
 					else
 						self.position++;
-					$("#cadre1").children("span:eq(" + self.anciennePosition + ")").removeAttr("class");
+					$("#cadre1 span").removeAttr("class");
 					$("#cadre1").children("span:eq(" + self.position + ")").attr("class", "spanCibleSourieMenuCombat");
 				}
 				else if (e.keyCode == 49 && $(".spanCibleSourieMenuCombat:eq(0)").parent().attr("id") == "rubriqueTechniquesEtObjets"){
