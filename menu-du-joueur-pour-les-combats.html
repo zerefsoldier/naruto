@@ -1,5 +1,5 @@
 <style>
-	#statut{
+	#statut, #statutAdverse{
 		transition-property: opacity;
 		transition-duration: 0.5;
 		transition-timing-function: linear;
@@ -12,42 +12,54 @@
 		border-radius: 0 0 15px 0;
 	}
 	
-	#statut:hover{
+	#statut:hover, #statutAdverse{
 		transition-property: opacity;
 		transition-duration: 0.5;
 		transition-timing-function: linear;
 		opacity: 1;
 	}
 	
-	#statut img, #statut div{
+	.statut img, .statut div{
 		display: inline-block;
 	}
 	
-	#statut img{
+	.statut img{
 		border-radius: 12px;
 		margin-right: 10px;
 	}
 	
-	#statut progress{
+	.statut progress{
 		display: block;
 		width: 120px;
 	}
 	
-	#chakra{
+	.chakra{
 		background-color: rgb(83, 68, 182);
 		color: rgb(15, 0, 110);
 	}
 	
-	#vie{
+	.vie{
 		background-color: rgb(93, 215, 93);
 		color: 9, 128, 9;
+	}
+	
+	.nbKills{
+		color: red;
+	}
+	
+	.etat{
+		font-weight: bold;
+	}
+	
+	.rang{
+		font-size: 16px;
 	}
 </style>
 <html>
 	<head>
 		<title>Test menu combat</title>
 	</head>
-	<div id="statut">
+	<div id="statut" class="statut">
 		<img src="uneImageDeTest.png" />
 		<div>
 			<progress class="chakra" val="" max=""></progress>
@@ -130,7 +142,7 @@
 			$("#content").html("< img src=" + joueur.getSkin() + " id=votreJoueur />");
 			$("#content").append("img src=" + joueurAdverse + " /> id=joueurAdverse");
 			$("#content").append($("#templateMenuCombat").html());
-			$("#content").append("<div id=statutAdverse>" + $("#statut").html() + "</div>");
+			$("#content").append("<div id=statutAdverse class=statut>" + $("#statut").html() + "</div>");
 			this.menuCombat = new MenuCombat();
 		}
 		
