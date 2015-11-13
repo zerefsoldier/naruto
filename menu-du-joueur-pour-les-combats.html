@@ -62,6 +62,7 @@
 	<div id="statut" class="statut">
 		<img src="uneImageDeTest.png" />
 		<div>
+			<p class="pseudo"></p>
 			<progress class="chakra" val="" max=""></progress>
 			<progress class="vie" val="" max=""></progress>
 			<p>Rang : <span class="rang"></span></p>
@@ -117,32 +118,40 @@
 		var datasSplit = datas.split("*");
 		switch (datasSplit[0]){
 			case "combat":
-				if (datasSplit[1] == "attaque"){
-					//informe l'utilisateur d'esquiver une action
-					$("#content").append("<div id=equive><img src=images/esquive.png /><span>Appuyer sur " + (Math.floor(Math.random() * (max - min)) + min)"</span></div>");
-					Combat.lanceEsquive(datasSplit);	
+				switch (datasSplit[1]){
+					case "statsAdversaire":
+					case "debutCombat":
+						var stats = datasSplit[2].split("|");
+						if (datasSplit[1] == "debutCombat")
+							Combat.init(new Adversaire(stats), "laMapADefinir");
+						$(".vie:eq(1)").val(stats[1]);
+						$(".chakra:eq(1)").val(stats[2]);
+						$(".etat:eq(1)").text(stats[3]);
+					break
+					case "attaque":
+						//informe l'utilisateur d'esquiver une action
+						$("#content").append("<div id=equive><img src=images/esquive.png /><span>Appuyer sur " + (Math.floor(Math.random() * (max - min)) + min)"</span></div>");
+						Combat.lanceEsquive(datasSplit);
+					break;
+					case "fin":
+						toastr.succes("Vous avez gagné contre " + joueur.getAdversaire());
+					break;
 				}
-				else if (datasSplit[1] == "refreshStatsAdversaire"){
-					var stats = datasSplit[2].split("|");
-					$(".vie:eq(1)").val(stats[0]);
-					$(".chakra:eq(1)").val(stats[1]);
-					$(".etat:eq(1)").text(stats[2]);
-				}
-				else if (datasSplit[1] == "fin")
-					toastr.succes("Vous avez gagné contre " + joueur.getAdversaire());
-				else{}
 			break;
 		}
 	};
 	var Combat = function(){
 		
-		Combat.prototype.Combat = function(joueurAdverse, mapCombat){
+		Combat.prototype.init = function(joueurAdverse, mapCombat){
 			//integrer le joueur sur la map de combat
 			$("#content").html("<img src=" + mapCombat + " id=mapCombat />");
 			$("#content").html("< img src=" + joueur.getSkin() + " id=votreJoueur />");
 			$("#content").append("img src=" + joueurAdverse + " /> id=joueurAdverse");
 			$("#content").append($("#templateMenuCombat").html());
 			$("#content").append("<div id=statutAdverse class=statut>" + $("#statut").html() + "</div>");
+			$(".pseudo:eq(1)").text(joueurAdverse.getPseudo());
+			$(".nbKills:eq(1)").text(joueurAdverse.getNbKills());
+			$(".rang:eq(1)").text(joueurAdverse.getRang());
 			this.menuCombat = new MenuCombat();
 		}
 		
