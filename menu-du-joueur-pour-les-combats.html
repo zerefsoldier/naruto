@@ -139,27 +139,23 @@
 		this.techniques = [];
 		this.objets = [];
 		this.missions = [];
+		this.bestaire = [];
 		var lesTechniques = "" //spliter les techniques sur l'indice n grace au caractere |
 		for (var laTechnique in lesTechniques){
-			this.techniques[i].push(new Technique(laTechnique.split("|||")));
+			this.techniques.push(new Technique(laTechnique.split("|||")));
 		}
-		var lesTypesDObjets = "" // spliter les objets sur l'indice n grace au caractere |
-		var lesObjetsDuType = "";
-		for (var i = 0, c = lesTypesDObjets.length; i < c; i++){
-			lesObjetsDuType = "" // //spliter les techniques sur l'indice i grace au caractere ||
-			for (var lObjetDuType in lesObjetsDuType){
-				this.objets[i].push(new Objet(lObjetDuType.split("|||")))
-			}
+		var lesObjets = "" // spliter les objets sur l'indice n grace au caractere |
+		for (var lObjet in lesObjets){
+			this.objets.push(new Objet(lObjetDuType.split("|||")))
 		}
-		var lesTypesDeMissions = "" // spliter les missions sur l'indice n grace au caractere |
-		var lesMissionsDuType = "";
-		for (var i = 0, c = lesTypesDeMissions.length; i < c; i++){
-			lesObjetsDuType = "" // //spliter les techniques sur l'indice i grace au caractere ||
-			for (var lObjetDuType in lesObjetsDuType){
-				this.objets[i].push(new Objet(lObjetDuType.split("|||")))
-			}
+		var lesMissions = "" // spliter les missions sur l'indice n grace au caractere |
+		for (var laMission in lesMissions){
+			this.missions.push(new Mission(laMission.split("|||")))
 		}
-		
+		var leBestaire = "";
+		for (var leMonstreDuBestaire in leBestiaire){
+			this.leBestaire.push(new MonstreBestaire(leMonstreDuBestaire.split("|||")));
+		}
  	}
 	
 	var webSocket = new WebSocket("http://url");
