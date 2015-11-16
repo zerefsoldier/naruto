@@ -96,10 +96,6 @@
 					<span id="enleverChakra3">Enlever le chakra de mon corps</span>
 				</div>
 				<div id="changeArme">
-					<!--
-						Si le joueur peut changer d'arme par l'intermediaire d'un objet
-						<span>Changer d'arme</span>
-					-->
 				</div>
 			</div>
 			<div id="cadre2">
@@ -117,26 +113,27 @@
 	var Joueur = function(){};
 	
 	Joueur.prototype.init = function(datas){
-		this.village = "village";
-		this.nom = "nom";
-		this.niveau = "niveau";
-		this.experience = "experience";
-		this.experienceAvantProchainNiveau = "valeur";
-		this.attaque = "valeur";
-		this.defense = "defense";
-		this.attaqueSpeciale = "valeur";
-		this.defenseSpeciale = "valeur";
-		this.vitesse = "valeur";
-		this.vie = "valeur";
-		this.chakra = "valeur";
-		this.rang = "valeur";
-		this.armePrincipale = "valeur";
-		this.armeSecondaire = "valeur";
-		this.armure = "valeur";
-		this.casque = "valeur";
-		this.map = "valeur";
-		this.positionMap = "valeur";
-		this.argent = "valeur";
+		this.village = datas[0];
+		this.nom = datas[1];
+		this.niveau = datas[2];
+		this.experience = parseInt(datas[3]);
+		this.experienceAvantProchainNiveau = parseInt(datas[4]);
+		this.attaque = parseInt(datas[5]);
+		this.defense = parseInt(datas[6]);
+		this.attaqueSpeciale = parseInt(datas[7]);
+		this.defenseSpeciale = parseInt(datas[8]);
+		this.vitesse = parseInt(datas[9]);
+		this.vie = parseInt(datas[10]);
+		this.chakra = parseInt(datas[11]);
+		this.rang = datas[12];
+		this.armePrincipale = new Arme(datas[13]);
+		if (datas[14] != "")
+			this.armeSecondaire = new Arme(datas[14]);
+		this.armure = datas[15];
+		this.casque =datas[16];
+		this.map = datas[17];
+		this.positionMap = datas[18];
+		this.argent = datas[19];
 		this.techniques = [];
 		this.objets = [];
 		this.missions = [];
@@ -157,6 +154,53 @@
 		for (var leMonstreDuBestaire in leBestiaire){
 			this.leBestaire.push(new MonstreBestaire(leMonstreDuBestaire.split("|||")));
 		}
+
+		Joueur.prototype.getVillage = function(){
+			return this.village;
+		};
+
+		Joueur.prototype.getNom = function(){
+			return this.nom;
+		};
+
+		Joueur.prototype.setNom = function(leNom){
+			this.nom = leNom
+		};
+
+		Joueur.prototype.getNiveau = function(){
+			return this.niveau;
+		};
+
+		Joueur.prototype.getExperience = function(){
+			return this.experience;
+		};
+
+		Joueur.prototype.gagneExperience = function(nouvelleExperience){
+			this.experience += nouvelleExperience;
+			if (this.experienceAvantProchainNiveau <= this.experience){
+				toastr.success("Vous avez amélioré vos statitstiques et etes devenu plus fort, Felicitations");
+				this.niveau++;
+				var self = this;
+				$.post("url", {"monteeNiveau" : "", "niveau" : this.niveau}).done(function(datas){
+					var split = datas.split("|");
+					self.setExperienceAvantProchainNiveau(parseInt(split[0]));
+					self.setAttaque(parseInt(split[1]));
+					self.setDefense(parseInt(split[2]));
+					self.setAttaqueSpeciale(parseInt(split[3]));
+					self.setDefenseSpeciale(parseInt(split[4]));
+					self.setVitesse(parseInt(split[5]));
+					self.setVie(parseInt(split[6]));
+					self.setChakra(parseInt(split[7]));
+					self.gagneExperience(0);
+				}).error(function(){
+					alert("Impossible d'augmenter votre niveau : serveurs introuvables ou innaccessibles");
+				});
+			}
+		};
+
+		Joueur.prototype.getExperienceAvantProchainNiveau = function(){
+			return this.experienceAvantProchainNiveau;
+		};
  	}
 	
 	var webSocket = new WebSocket("http://url");
@@ -171,7 +215,7 @@
 						if (datasSplit[1] == "debutCombat"){
 							if (joueur.porteArmeSecondaire())
 								$("#changerArme").append("<span>Changer arme</span>");
-							Combat.init(new Adversaire(statsAdversaire), datasSplit[3]);
+							Combat.init(statsAdversaire, datasSplit[3]);
 						}
 						else{
 							$(".chakra:eq(1)").val(statsAdversaire[0]);
@@ -180,7 +224,7 @@
 						}
 					break
 					case "attaque":
-						var touche = (Math.floor(Math.random() * (max - min)) + min);
+						var touche = (Math.floor(Math.random() * (90 - 65)) + 95);
 						$("#content").append("<div id=equive><img src=images/esquive.png /><span>Appuyer sur " + String.fromCharCode(touche) + "</span></div>");
 						Combat.lanceEsquive(datasSplit, touche);
 					break;
@@ -199,9 +243,9 @@
 	var Combat = function(){
 		
 		Combat.prototype.init = function(joueurAdverse, mapCombat){
-			$("#content").html("<img src=" + mapCombat + " id=mapCombat />");
+			$("#content").html("<div id=statutAdverse class=statut>" + $("#statut").html() + "</div><img src=" + mapCombat + " id=mapCombat />");
 			$("#content").append("<img src=" + joueur.getSkin() + " id=votreJoueur />");
-			$("#content").append("<img src=" + joueurAdverse.getSkin() + " id=joueurAdverse />");
+			$("#content").append("<img src=" +  + " id=joueurAdverse />");
 			$("#content").append($("#templateMenuCombat").html());
 			$("#content").append("<div id=statutAdverse class=statut>" + $("#statut").html() + "</div>");
 			$(".pseudo:eq(1)").text(joueurAdverse.getPseudo());
