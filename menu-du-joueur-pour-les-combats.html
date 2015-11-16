@@ -1,3 +1,25 @@
+
+Skip to content
+This repository
+
+    Pull requests
+    Issues
+    Gist
+
+    @zerefsoldier
+
+2
+0
+
+    0
+
+zerefsoldier/naruto
+
+naruto/menu-du-joueur-pour-les-combats.html
+7b9138f 4 hours ago
+@zerefsoldier zerefsoldier Update menu-du-joueur-pour-les-combats.html
+1 contributor
+703 lines (641 sloc) 23.3 KB
 <style>
 	#statut, #statutAdverse{
 		transition-property: opacity;
@@ -126,14 +148,17 @@
 		this.vie = parseInt(datas[10]);
 		this.chakra = parseInt(datas[11]);
 		this.rang = datas[12];
-		this.armePrincipale = new Arme(datas[13]);
-		if (datas[14] != "")
-			this.armeSecondaire = new Arme(datas[14]);
-		this.armure = datas[15];
-		this.casque =datas[16];
-		this.map = datas[17];
-		this.positionMap = datas[18];
-		this.argent = datas[19];
+		this.oeulDroit = new Oeuil(datas[13]);
+		this.oeuilGauche = new Oeuil(datas[14]);
+		this.armePrincipale = new Arme(datas[15]);
+		if (datas[16] != "")
+			this.armeSecondaire = new Arme(datas[16]);
+		this.armure = datas[17];
+		this.casque =datas[18];
+		this.map = datas[19];
+		this.positionMap = datas[20];
+		this.argent = datas[21];
+		this.pvp = datas[22];
 		this.techniques = [];
 		this.objets = [];
 		this.missions = [];
@@ -154,27 +179,21 @@
 		for (var leMonstreDuBestaire in leBestiaire){
 			this.leBestaire.push(new MonstreBestaire(leMonstreDuBestaire.split("|||")));
 		}
-
 		Joueur.prototype.getVillage = function(){
 			return this.village;
 		};
-
 		Joueur.prototype.getNom = function(){
 			return this.nom;
 		};
-
 		Joueur.prototype.setNom = function(leNom){
 			this.nom = leNom
 		};
-
 		Joueur.prototype.getNiveau = function(){
 			return this.niveau;
 		};
-
 		Joueur.prototype.getExperience = function(){
 			return this.experience;
 		};
-
 		Joueur.prototype.gagneExperience = function(nouvelleExperience){
 			this.experience += nouvelleExperience;
 			if (this.experienceAvantProchainNiveau <= this.experience){
@@ -197,69 +216,53 @@
 				});
 			}
 		};
-
 		Joueur.prototype.getExperienceAvantProchainNiveau = function(){
 			return this.experienceAvantProchainNiveau;
 		};
-
 		Joueur.prototype.getAttaque = function(){
 			return this.attaque
 		};
-
 		Joueur.prototype.getDefense = function(){
 			return this.defense;
 		};
-
 		Joueur.prototype.getAttaqueSpeciale = function(){
 			return this.attaqueSpeciale;
 		};
-
 		Joueur.prototype.setAttaqueSpeciale = function(attaqueSpecialeArg){
 			this.attaqueSpeciale = attaqueSpecialeArg;
 		};
-
 		Joueur.prototype.getDefenseSpeciale = function(){
 			return this.defenseSpeciale;
 		};
-
 		Joueur.prototype.setDefenseSpeciale = function(defenseSpecialeArg){
 			this.defenseSpeciale = defenseSpecialeArg;
 		};
-
 		Joueur.prototype.getVitesse = function(){
 			return this.vitesse;
 		};
-
 		Joueur.prototype.setVitesse = function(vitesseArg){
 			this.vitesse = vitesseArg;
 		};
-
 		Joueur.prototype.getVie = function(){
 			return this.vie;
 		};
-
 		Joueur.prototype.setVie = function(vieArg){
 			this.vie = vieArg;
 		};
-
 		Joueur.prototype.getChakra = function(){
 			return this.chakra;
 		};
-
 		Joueur.prototype.utilisePointsChakra = function(pourcentage){
 			 this.chakra *= (pourcentage / 100);
 		};
-
 		Joueur.prototype.peutUtiliserChakra = function(pourcentage){
 			if (this.chakra - (this.chakra * pourcentage / 100) > 0)
 				return true;
 			return false;
 		};
-
 		Joueur.prototype.getRang = function(){
 			return rang;
 		};
-
 		Joueur.prototype.setRang = function(superieur){
 			var self = this;
 			$.post("page", {"evolutionRang": this.rang, "type" : superieur}).done(function(datas){
@@ -273,43 +276,42 @@
 				alert("Impossible de contacter ou d'avoir accès au serveur");
 			});
 		};
-
+		Joueur.prototype.getOeuilGauche = function(){
+			return this.oeuilGauche;
+		};
+		Joueur.prototype.getOeuilDroit = function(){
+			return this.oeuilDroit;
+		};
+		Joueur.prototype.estEnPvp = function(){
+			return this.pvp == "oui";
+		};
 		Joueur.prototype.getArmePrincipale = function(){
 			return this.armePrincipale;
 		};
-
 		Joueur.prototype.getArmeSecondaire = function(){
 			return this.armeSecondaire;
 		};
-
 		Joueur.prototype.getArmure = function(){
 			return this.armure;
 		};
-
 		Joueur.prototype.getCasque = function(){
 			return this.casque;
 		};
-
 		Joueur.prototype.getMap = function(){
 			return this.map;
 		};
-
 		Joueur.prototype.getPositionMapX = function(){
 			return this.map[0];
 		};
-
 		Joueur.prototype.getPositionMapY = function(){
 			return this.map[1];
 		};
-
 		Joueur.prototype.setPositionMapX = function(positionX){
 			this.map[0] = positionX;
 		};
-
 		Joueur.prototype.setPositionMapY = function(positionY){
 			this.map[1] = positionY;
 		};
-
 		Joueur.prototype.getObjet = function(nom){
 			var i = 0, c = this.objets.length;
 			var trouve = false;
@@ -323,15 +325,12 @@
 				return this.objets[i];
 			return null;
 		};
-
 		Joueur.prototype.getArgent = function(){
 			return this.argent;
 		};
-
 		Joueur.prototype.getTechniques = function(){
 			return this.techniques;
 		};
-
 		Joueur.prototype.getMissions = function(categorie){
 			if (categorie == "toutes")
 				return this.missions;
@@ -344,7 +343,6 @@
 				return lesMissions;
 			}
 		};
-
 		Joueur.prototype.supprimeMission = function(mission){
 			var i = 0, c = this.missions.length;
 			var trouve = false;
@@ -360,11 +358,25 @@
 				}
 			}
 		};
-
 		Joueur.prototype.accepteMission = function(argsMission){
 			this.missions.push(new Mission(argsMission));
 		};
-
+		Joueur.prototype.peutChangerArme = function(){
+			var i = 0, c = this.objets.length;
+			var trouve = false;
+			while (i < c && !trouve){
+				if (this.objets[i].getNom() == "Sacoche multi arme")
+					trouve = true;
+				else
+					i++;
+			}
+			return trouve;
+		};
+		Joueur.prototype.changeArmePrincipale = function(){
+			var armeSwitch = this.armePrincipale;
+			this.armePrincipale = this.armeSecondaire;
+			this.armeSecondaire = armeSwitch;
+		};
 		/*Joueur.prototype.getObjet = function(type){
 			var objets = [];
 			for (var objet in this.objets){
@@ -489,9 +501,7 @@
 		return Combat;
 	};
 })();
-
 $.post("ajax.php"; {"action" : "recupererDonneesPourCombat"}).done(function(datas){
-
     
 /*
 Utilisation d'un template : 
@@ -698,5 +708,9 @@ Utilisation d'un template :
 	};
 	return MenuCombat;
 });
-
 </script>
+
+    Status API Training Shop Blog About Pricing 
+
+    © 2015 GitHub, Inc. Terms Privacy Security Contact Help 
+
