@@ -408,6 +408,10 @@
 				$("#" + values[0]).style("top", values[1] + "px");
 				$("#" + values[0]).style("left", values[2] + "px");
 			break;
+			case "mission":
+				toastr.info("Une mission vous à été assigné a l'instant même par votre kage. Vous pouvez toutefois la refuser. Ordre de mission : " + datasSplit[1] + "\nRésumé : " + datasSplit[2]);
+				Joueur.ajouteMission(datasSplit.shift(0, 1));
+			break;
 		}
 	};
 	var Combat = function(){
