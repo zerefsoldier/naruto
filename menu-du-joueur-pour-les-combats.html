@@ -221,6 +221,42 @@
 		Joueur.prototype.getVitesse = function(){
 			return this.vitesse;
 		};
+
+		Joueur.prototype.getVie = function(){
+			return this.vie;
+		};
+
+		Joueur.prototype.getChakra = function(){
+			return this.chakra;
+		};
+
+		Joueur.prototype.utilisePointsChakra = function(pourcentage){
+			 this.chakra *= (pourcentage / 100);
+		};
+
+		Joueur.prototype.peutUtiliserChakra = function(pourcentage){
+			if (this.chakra - (this.chakra * pourcentage / 100) > 0)
+				return true;
+			return false;
+		};
+
+		Joueur.prototype.getRang = function(){
+			return rang;
+		}
+
+		Joueur.prototype.setRang = function(superieur){
+			var self = this;
+			$.post("page", {"evolutionRang": this.rang, "type" : superieur}).done(function(datas){
+				var ancienRang = self.rang;
+				self.rang = datas;
+				if (superieur)
+					toastr.succes("Félicitation pour votre promotion : vous passez du grade de " + ancienRang + " au grade de " + self.rang, "Changement de grade");
+				else
+					toastr.info("Votre kage à décidé de changer votre rang : vous passez du grade de " + ancienRang + " au grade de " + self.rang, "Changement de grade");
+			}).error(function(){
+				alert("Impossible de contacter ou d'avoir accès au serveur")
+			});
+		};
  	}
 	
 	var webSocket = new WebSocket("http://url");
