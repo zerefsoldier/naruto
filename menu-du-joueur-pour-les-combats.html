@@ -74,7 +74,7 @@
 		-->
 	</div>
 	<body>
-		<div id="menuCombat">
+		<div id="menuCombat" class="cache">
 			<div id="cadre1">
 				<div id="coupsStandards">
 					<span id="attaqueArme">Attaquer avec mon arme principale</span>
@@ -166,41 +166,54 @@
 				switch (datasSplit[1]){
 					case "statsAdversaire":
 					case "debutCombat":
-						var stats = datasSplit[2].split("|");
-						if (datasSplit[1] == "debutCombat")
-							Combat.init(new Adversaire(stats), "laMapADefinir");
-						$(".vie:eq(1)").val(stats[1]);
-						$(".chakra:eq(1)").val(stats[2]);
-						$(".etat:eq(1)").text(stats[3]);
+						var statsAdversaire = datasSplit[2].split("|");
+						if (datasSplit[1] == "debutCombat"){
+							if (joueur.porteArmeSecondaire())
+								$("#changerArme").append("<span>Changer arme</span>");
+							Combat.init(new Adversaire(statsAdversaire), datasSplit[3]);
+						}
+						else{
+							$(".chakra:eq(1)").val(statsAdversaire[0]);
+							$(".vie:eq(1)").val(statsAdversaire[1]);
+							$(".etat:eq(1)").text(statsAdversaire[2]);
+						}
 					break
 					case "attaque":
-						//informe l'utilisateur d'esquiver une action
-						$("#content").append("<div id=equive><img src=images/esquive.png /><span>Appuyer sur " + (Math.floor(Math.random() * (max - min)) + min)"</span></div>");
-						Combat.lanceEsquive(datasSplit);
+						var touche = (Math.floor(Math.random() * (max - min)) + min);
+						$("#content").append("<div id=equive><img src=images/esquive.png /><span>Appuyer sur " + String.fromCharCode(touche) + "</span></div>");
+						Combat.lanceEsquive(datasSplit, touche);
 					break;
 					case "fin":
 						toastr.succes("Vous avez gagné contre " + joueur.getAdversaire());
 					break;
 				}
 			break;
+			case "deplacementMapJoueur":
+				var values = datasSplit[1].split("|");
+				$("#" + values[0]).style("top", values[1] + "px");
+				$("#" + values[0]).style("left", values[2] + "px");
+			break;
 		}
 	};
 	var Combat = function(){
 		
 		Combat.prototype.init = function(joueurAdverse, mapCombat){
-			//integrer le joueur sur la map de combat
 			$("#content").html("<img src=" + mapCombat + " id=mapCombat />");
-			$("#content").html("< img src=" + joueur.getSkin() + " id=votreJoueur />");
-			$("#content").append("img src=" + joueurAdverse + " /> id=joueurAdverse");
+			$("#content").append("<img src=" + joueur.getSkin() + " id=votreJoueur />");
+			$("#content").append("<img src=" + joueurAdverse.getSkin() + " id=joueurAdverse />");
 			$("#content").append($("#templateMenuCombat").html());
 			$("#content").append("<div id=statutAdverse class=statut>" + $("#statut").html() + "</div>");
 			$(".pseudo:eq(1)").text(joueurAdverse.getPseudo());
 			$(".nbKills:eq(1)").text(joueurAdverse.getNbKills());
+			$(".chakra:eq(1)").text(joueurAdverse.getChakra());
+			$(".vie:eq(1)").text(joueurAdverse.getVie());
 			$(".rang:eq(1)").text(joueurAdverse.getRang());
+			$(".etat:eq(1)").text(joueurAdverse.getEtat());
+			//$("#menuCombat").attr("class", "visible");
 			this.menuCombat = new MenuCombat();
 		}
 		
-		Combat.prototype.lanceEsquive = function(datasSplit){
+		Combat.prototype.lanceEsquive = function(datasSplitn, touche){
 			$(window).keydown(function(e){
 				var estEsquive = null;
 				if (estEsquive == null && e.keyCode == "touche e"){
@@ -411,8 +424,10 @@ Utilisation d'un template :
 						if (e.keyCode == 13 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").parent().attr("id") == "coupsStandards")
 							$.post("ajax.php", "coup" : "attaqueSimple", "chakraDansCoup" : self.manipulerChakra[0][0], "valeurChakraCoup" : self.manipulerChakra[0][1], "chakraDansPied" : self.manipulerChakra[1][0], "valeurChakraPieds" : self.manipulerChakra[1][1], "chakraDansCorps" : self.manipulerChakra[2][0], "valeurChakraDansCorps" : self.manipulerChakra[2][1], "typeAttaque" : $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").attr("id"), "armePrincipale" : joueur.getArmePrincipale().getNom()});
 						else{
-							if (e.keyCode == 13 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").parent().attr("id") == "changerArme")
-								joueur.changeArmePrincipale(); 	
+							if (e.keyCode == 13 && $(".spanCibleSourieMenuCombat:eq(" + self.position + ")").parent().attr("id") == "changerArme"){
+								joueur.changeArmePrincipale();
+								toastr.info("vous avez choisi de porter l'arme suivante : " + joueur.getArmePrincipale().getNom(), "Changement d'arme");
+							}
 						}
 					}
 				}
