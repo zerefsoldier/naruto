@@ -214,16 +214,32 @@
 			return this.attaqueSpeciale;
 		};
 
+		Joueur.prototype.setAttaqueSpeciale = function(attaqueSpecialeArg){
+			this.attaqueSpeciale = attaqueSpecialeArg;
+		};
+
 		Joueur.prototype.getDefenseSpeciale = function(){
 			return this.defenseSpeciale;
+		};
+
+		Joueur.prototype.setDefenseSpeciale = function(defenseSpecialeArg){
+			this.defenseSpeciale = defenseSpecialeArg;
 		};
 
 		Joueur.prototype.getVitesse = function(){
 			return this.vitesse;
 		};
 
+		Joueur.prototype.setVitesse = function(vitesseArg){
+			this.vitesse = vitesseArg;
+		};
+
 		Joueur.prototype.getVie = function(){
 			return this.vie;
+		};
+
+		Joueur.prototype.setVie = function(vieArg){
+			this.vie = vieArg;
 		};
 
 		Joueur.prototype.getChakra = function(){
@@ -242,7 +258,7 @@
 
 		Joueur.prototype.getRang = function(){
 			return rang;
-		}
+		};
 
 		Joueur.prototype.setRang = function(superieur){
 			var self = this;
@@ -254,9 +270,107 @@
 				else
 					toastr.info("Votre kage à décidé de changer votre rang : vous passez du grade de " + ancienRang + " au grade de " + self.rang, "Changement de grade");
 			}).error(function(){
-				alert("Impossible de contacter ou d'avoir accès au serveur")
+				alert("Impossible de contacter ou d'avoir accès au serveur");
 			});
 		};
+
+		Joueur.prototype.getArmePrincipale = function(){
+			return this.armePrincipale;
+		};
+
+		Joueur.prototype.getArmeSecondaire = function(){
+			return this.armeSecondaire;
+		};
+
+		Joueur.prototype.getArmure = function(){
+			return this.armure;
+		};
+
+		Joueur.prototype.getCasque = function(){
+			return this.casque;
+		};
+
+		Joueur.prototype.getMap = function(){
+			return this.map;
+		};
+
+		Joueur.prototype.getPositionMapX = function(){
+			return this.map[0];
+		};
+
+		Joueur.prototype.getPositionMapY = function(){
+			return this.map[1];
+		};
+
+		Joueur.prototype.setPositionMapX = function(positionX){
+			this.map[0] = positionX;
+		};
+
+		Joueur.prototype.setPositionMapY = function(positionY){
+			this.map[1] = positionY;
+		};
+
+		Joueur.prototype.getObjet = function(nom){
+			var i = 0, c = this.objets.length;
+			var trouve = false;
+			while (i < c && !trouve){
+				if (this.objets[i].getNom() == nom)
+					trouve = true;
+				else
+					i++;
+			}
+			if (trouve)
+				return this.objets[i];
+			return null;
+		};
+
+		Joueur.prototype.getArgent = function(){
+			return this.argent;
+		};
+
+		Joueur.prototype.getTechniques = function(){
+			return this.techniques;
+		};
+
+		Joueur.prototype.getMissions = function(categorie){
+			if (categorie == "toutes")
+				return this.missions;
+			else{
+				var lesMissions = [];
+				for (var mission in this.missions){
+					if (mission.getCategorie() == categorie)
+						lesMissions.push(mission);
+				}
+				return lesMissions;
+			}
+		};
+
+		Joueur.prototype.supprimeMission = function(mission){
+			var i = 0, c = this.missions.length;
+			var trouve = false;
+			var self = this;
+			while (i < c && !trouve){
+				if (this.missions[i].getNom() == mission){
+					$.post("url", {"retirerMissionJoueur" : this.nom, "mission" : this.missions[i].getNom()}).done(function(){
+						self.missions.flush(i, 1);
+					}).error(function(){
+						alert("Impossible de contacter le serveur pour oublier cette mission. L'incident sera réparé au plus vite");
+					});
+					trouve = true;
+				}
+			}
+		};
+
+		Joueur.prototype.accepteMission = function(argsMission){
+			this.missions.push(new Mission(argsMission));
+		};
+
+		/*Joueur.prototype.getObjet = function(type){
+			var objets = [];
+			for (var objet in this.objets){
+				if (type == 0 && objet.getType() == "arme" || type == 1 && objet.getType() == "armure" || type == 2 && objet.getType() == "objet")
+			}
+		}*/
  	}
 	
 	var webSocket = new WebSocket("http://url");
