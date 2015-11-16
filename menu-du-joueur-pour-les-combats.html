@@ -201,6 +201,26 @@
 		Joueur.prototype.getExperienceAvantProchainNiveau = function(){
 			return this.experienceAvantProchainNiveau;
 		};
+
+		Joueur.prototype.getAttaque = function(){
+			return this.attaque
+		};
+
+		Joueur.prototype.getDefense = function(){
+			return this.defense;
+		};
+
+		Joueur.prototype.getAttaqueSpeciale = function(){
+			return this.attaqueSpeciale;
+		};
+
+		Joueur.prototype.getDefenseSpeciale = function(){
+			return this.defenseSpeciale;
+		};
+
+		Joueur.prototype.getVitesse = function(){
+			return this.vitesse;
+		};
  	}
 	
 	var webSocket = new WebSocket("http://url");
