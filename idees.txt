@@ -93,6 +93,12 @@ d'armes et plus l'arme sera chère. En effet si l'utilisateur forge une lame ave
 -ci vaudra plus chère. De même si l'utilisateur forge une lame avec 1 bout d'acier plutot qu'avec deux bouts de fer
 alors celle-ci sera plus chère.
 
+===== **** ===== Les missions ===== **** =====
+
+Chaque joueur peut voir les missions qui lui ont étés confiées avec les autres personnes qui l'ont aussi accépté si 
+ils sont plusieurs sur le coup. Un genre de panneau d'affichage des missions. Il sera aussi possible lors d'une chasse
+au trésor d'avoir plusieurs items a rapporter en un seul ou plusieurs exemplaires.
+
 ===== **** ===== Informations visibles sur la page d'acceuil ===== **** =====
 
 Statistique des meilleurs joueurs
